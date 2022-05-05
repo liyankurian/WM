@@ -226,8 +226,13 @@ $id=$_GET['aab'];
                                 <th scope="col" style="height:4vh">PickUp Days</th>
                                 <td><?php echo $pickrow["pickupday"]; ?></td>
                             </tr>
+                            <tr>
+                                <th scope="col" style="height:4vh">Driver Assigned </th>
+                                <td><?php echo $pickrow["assign"]; ?></td>
+                            </tr>
                             <form action="assigndriver.php" method="post">
                             <tr>
+                                <th scope="col" >Change Assigned Driver </th>
                                 <td colspan="2" style="height:4vh; text-align:center" >
                                 <select name="driver"  style="height:6vh;" id="driver">
                                 <option disabled selected>Assign to driver</option>
@@ -239,9 +244,10 @@ $id=$_GET['aab'];
                                 <?php
                                 }
                                 ?>
-                                 </select>
+                                </select>
                                 <input type="hidden" name="id" value="<?php echo $id;?>">
                                 <button type="submit" class="btn btn-primary" name="asgn">Assign</button>
+                            </td>
                                 </form>
                                 <?php
                                 if(isset($_POST['asgn']))

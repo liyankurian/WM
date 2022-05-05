@@ -30,8 +30,9 @@ while($p=mysqli_fetch_assoc($pay))
 $mpdf = new \Mpdf\Mpdf();
 $data = '';
 $data .= '<div class="card"><h1>Waste Management</h1>';
-$data .= '<div class="crntdate"><h6></h6></div>';
+$data .= '<div class="crntdate"><h4>BILL</h4></div>';
 $data .= '<p> Email :' .  $email.'</p>';
+$data .= '<p> description :Advance Payment</p>';
 $data .= '<p> Amount :' . $amount.'</p>';
 $data .= '<p> Date and time :' . $date.'</p></div>';
 $mpdf->WriteHTML($data);

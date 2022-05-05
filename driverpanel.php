@@ -82,7 +82,7 @@ $ah=$_SESSION['dd'];
         </nav>
         <div class="row1  ">
             <?php
-            $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE a.uid=b.uid");
+            $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE a.assign='$ah'");
             if(mysqli_num_rows($qr1)>0)
             {
             while($r=mysqli_fetch_array($qr1)){

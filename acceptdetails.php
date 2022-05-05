@@ -71,15 +71,7 @@ $ah=$_SESSION['dd'];
                 </ul>
             </li>-->
             
-            <li>
-                <a href="#">
-                    <i class="las la-calendar"></i>
-                    <span class="link_name">Leave</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Leave</a></li>
-                </ul>
-            </li>
+           
 
             <li>
                 <a href="acceptdetails.php">
@@ -163,7 +155,7 @@ $ah=$_SESSION['dd'];
                                 <td><?php echo $row["apname"]; ?></td>
                                 <td><?php echo $row["apno"]; ?></td>
                                 <td><?php echo $row["address"]; ?></td>  
-                                <td><a href="acceptmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                                <td><a href="acceptdetailsmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
                                 <th scope="col"><button class="btn btn-success" type="submit">Accepted User</button></th>
                         </tr>     
                     <?php
