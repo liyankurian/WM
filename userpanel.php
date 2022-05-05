@@ -396,12 +396,26 @@ if (isset($_POST['btn'])) {
                     <td><label><?php echo $row['pickupday'] ?></label></td>
                 </tr>
             </table>
-            <?php
-            }}else{
                 
-                //echo mysqli_errno($con);
+            <?php
+                }}
+            $qu=mysqli_query($con,"SELECT * FROM `payment` WHERE  `name`='$ah'");
+            if (mysqli_num_rows($qu) > 0){
+            while($row5=mysqli_fetch_array($qu)){
+            $t=$row5['payment_status'];
             }
-        ?>
+            if($t=='pending'){?>
+            <marquee ><a href="paymentpage.php" style="color:#FF0000;">Advance Payment ₹500 is Pending </a></marquee>
+            <?php }
+            else{}
+            }else{?>
+            <marquee ><a href="paymentpage.php" style="color:#FF0000;"> Pay Advance Amount  ₹500 </a></marquee>
+
+            <?php
+            }
+            ?>
+                
+             
         </div>
 
         <div id="id01" class="modal">

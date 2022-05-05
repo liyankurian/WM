@@ -82,11 +82,15 @@ $ah=$_SESSION['dd'];
         </nav>
         <div class="row1  ">
             <?php
-            $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE a.assign='$ah'");
-            if(mysqli_num_rows($qr1)>0)
-            {
-            while($r=mysqli_fetch_array($qr1)){
+            $sql = "SELECT * FROM tbl_pickupdetails WHERE assign='$ah' AND status='1'";
+            $result = mysqli_query($con, $sql);
+            $resultCheck = mysqli_num_rows($result);
+            if ($resultCheck > 0) {
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $aid = $row['uid'];
 
+                    
+            
             
             ?>
         <div class="form bg-light   m-4" id="form" style="height:auto; width:auto;">
@@ -103,6 +107,14 @@ $ah=$_SESSION['dd'];
                     <th>Pincode</th>
                     <th scope="col">More</th>
                 </tr>
+                <?php
+                $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
+                if(mysqli_num_rows($qr1)>0)
+                {
+                while($r=mysqli_fetch_array($qr1)){
+                                    
+                ?>
+
                 <tr>
                     <td><?php echo $r['apname'];?></td>
                     <td><?php echo $r['apno'];?></td>
@@ -110,12 +122,17 @@ $ah=$_SESSION['dd'];
                     <td><?php echo $r['dist'];?></td>
                     <td><?php echo $r['city'];?></td>
                     <td><?php echo $r['pin'];?></td>
-                    <td><a href="userdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                    <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
                 </tr>
-                <?php  //echo "<script>alert('d88d')</script>";
+                <?php  
                 } }else{
                     echo "<script>alert('ddd')</script>";
-                    }?>
+                    }
+                }
+            }else{
+                echo "No Pickup Request";
+            }
+            ?>
             </table>
         </div>
     </section>
