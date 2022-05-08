@@ -2,6 +2,14 @@
 include 'hconnect.php';
 session_start();
 $ah=$_SESSION['dd'];
+$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
+while ($tid = mysqli_fetch_array($rid)) {
+    $id = $tid['uid'];
+    
+}
+$pi=mysqli_query($con,"SELECT * FROM `tbl_driverdetails` WHERE `id`='$id'");
+$userData=mysqli_fetch_assoc($pi);
+$spic=$userData['img'];
 ?>
 
 <!DOCTYPE html>
@@ -67,7 +75,7 @@ $ah=$_SESSION['dd'];
                         <div class="profile_name"><a href="logout.php" style="color:white;"><i
                                     class='bx bx-log-out'></i>Driver</a></div>
                     </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
+                    <img src="./staff pic/<?php echo $spic; ?>" height="100px" width="100px"/>
                 </div>
             </li>
         </ul>
@@ -86,12 +94,7 @@ $ah=$_SESSION['dd'];
             $result = mysqli_query($con, $sql);
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck > 0) {
-                while ($row = mysqli_fetch_assoc($result)) {
-                    $aid = $row['uid'];
-
-                    
-            
-            
+                
             ?>
         <div class="form bg-light   m-4" id="form" style="height:auto; width:auto;">
                     <table class="table table-bordered">
@@ -106,12 +109,14 @@ $ah=$_SESSION['dd'];
                     <th>City</th>
                     <th>Pincode</th>
                     <th scope="col">More</th>
-                </tr>
+                    </tr>
                 <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $aid = $row['uid'];
                 $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
                 if(mysqli_num_rows($qr1)>0)
                 {
-                while($r=mysqli_fetch_array($qr1)){
+                if($r=mysqli_fetch_array($qr1)){
                                     
                 ?>
 
@@ -130,7 +135,7 @@ $ah=$_SESSION['dd'];
                     }
                 }
             }else{
-                echo "No Pickup Request";
+                echo "Not Assigned to Anyone Yet";
             }
             ?>
             </table>

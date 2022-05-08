@@ -120,66 +120,66 @@ $ah=$_SESSION['dd'];
         
             <div class="overview-boxes ">
             <div class="container">
-        <!-- search -->
+         <!-- search -->
         <div class="row">
-            <div class="col-md-12 mt-4">
-                        <div class="row">
-                            <div class="col-md-7">
-
-                                <form action="acceptsearch.php" method="GET">
-                                    <div class="input-group mb-3">
-                                        <input type="text" name="search" required value="<?php if(isset($_GET['search'])){echo $_GET['search']; } ?>" class="form-control" placeholder="Search data">
-                                        <button type="submit" class="btn btn-primary">Search</button>
-                                    </div>
-                                </form>
-
-                            </div>
-</div>
-            </div>
+            
             
             <div class="form bg-light  mt-4" id="form" style="height:auto; width:auto;">
                     <table class="table table-bordered">
                         <thead>
                         <tr><th colspan="7" class="rec">Accepted Data</th></tr>
                             <tr>
-                                <th scope="col">Index</th>
+                                
                                 <th scope="col">Email</th>
                                 <th scope="col">Apartment Name</th>
                                 <th scope="col">Apartment Number</th>
                                 <th scope="col">Address</th>
-                                <th scope="col">More</th>
-                                <th scope="col">Status</th>
+                                <th scope="col">District</th>
+                                <th scope="col">City</th>
+                                <th scope="col">Mobile</th>
                             </tr>
                         </thead>
                         </tr>
-                        </thead>
-                        <?php
-                        $no=1;
-                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='1' ");
-                        if(mysqli_num_rows($res)<1)
-                        {
-                            ?> <tr><th colspan="6" class="rec">No Records</th> </tr>
-                            <?php
-                        }
-                        
-                        else
-                        {
-                        
-                        while ($row = mysqli_fetch_array($res)) { ?>
-                        <tr>
-                                <td><?php echo $no; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                                <td><?php echo $row["apname"]; ?></td>
-                                <td><?php echo $row["apno"]; ?></td>
-                                <td><?php echo $row["address"]; ?></td>  
-                                <td><a href="acceptdetailsmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                                <th scope="col"><button class="btn btn-success" type="submit">Accepted User</button></th>
-                        </tr>     
-                    <?php
-                        $no++;
-                        }
-                    }
-                        ?>           
+                        <tbody>
+                        <?php 
+                                    if(isset($_GET['search']))
+                                    {
+                                        $filtervalues = $_GET['search'];
+                                        echo "<script language= 'JavaScript'>alert(' $filtervalues ');</script>";
+                                        $query = "SELECT  b.email,a.apname, a.apno,a.address,a.dist,a.city,a.mob FROM tbl_userdetails a INNER JOIN tbl_register b  WHERE b.id=a.uid and CONCAT(b.email,a.apname,a.apno,a.address,a.dist,a.city,a.mob) LIKE '%$filtervalues%' ";
+                                        // $query = "SELECT * FROM users WHERE CONCAT(firstname,lastname,email) LIKE '%$filtervalues%' ";
+                                        $query_run = mysqli_query($con, $query);
+                                        if(mysqli_num_rows($query_run) > 0)
+                                        {
+                                            foreach($query_run as $items)
+                                            {
+                                                ?>
+                                                <tr>
+                                                    
+                                                    <td><?= $items['email']; ?></td>
+                                                    <td><?= $items['apname']; ?></td>
+                                                    <td><?= $items['apno']; ?></td>
+                                                    <td><?= $items['address']; ?></td>
+                                                    <td><?= $items['dist']; ?></td>
+                                                    <td><?= $items['city']; ?></td>
+                                                    <td><?= $items['mob']; ?></td>
+                                                    
+                                                </tr>
+                                                <?php
+                                            }
+                                        }
+                                        else
+                                        {
+                                            ?>
+                                                <tr>
+                                                    <td colspan="4">No Record Found</td>
+                                                </tr>
+                                            <?php
+                                        }
+                                    }
+                                ?>
+                        </tbody>
+                                
             </div>
         </div>
     </section>

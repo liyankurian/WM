@@ -10,7 +10,6 @@ if (isset($_POST['save'])) {
     $g = $_FILES["pho"]["name"];
     $h = $_FILES["lpho"]["name"];
     $i = $_POST["jdob"];
-   
     move_uploaded_file($_FILES["pho"]["tmp_name"], "staff pic/" . $_FILES["pho"]["name"]);
     move_uploaded_file($_FILES["lpho"]["tmp_name"], "staff pic/" . $_FILES["lpho"]["name"]);
 

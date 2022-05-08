@@ -38,7 +38,7 @@ if (isset($_POST['btn'])) {
     else
     {
         echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Pickup details added successfully","error");';
+        echo 'setTimeout(function () { swal("Pickup details not added successfully","error");';
             echo '}, 1000);</script>';
         // echo '
         // <script type="text/javascript">
@@ -376,12 +376,13 @@ if (isset($_POST['btn'])) {
                 if(mysqli_num_rows($res)>0){
                    
 
-                while($row=mysqli_fetch_array($res))
+                if($row=mysqli_fetch_array($res))
                 { 
                     // echo "<script>alert('ggy')</script>"; 
+                
             ?>
             <div class="details">
-            <H3>Order Details</H3>
+            <H3>PickUp Details</H3>
             <table>
                 <tr>
                     <td>PickUp Started Date:</td>
@@ -395,27 +396,25 @@ if (isset($_POST['btn'])) {
                     <td>PickUp Days:</td>
                     <td><label><?php echo $row['pickupday'] ?></label></td>
                 </tr>
+                <?php
+                
+                $qu=mysqli_query($con,"SELECT * FROM `payment` WHERE  `name`='$ah'");
+                if (mysqli_num_rows($qu) > 0){
+                while($row5=mysqli_fetch_array($qu)){
+                $t=$row5['payment_status'];
+                }
+                if($t=='pending'){?>
+                <marquee ><a href="paymentpage.php" style="color:#FF0000;">Advance Payment ₹500 is Pending </a></marquee>
+                <?php }
+                else{}
+                }else{?>
+                <marquee ><a href="paymentpage.php" style="color:#FF0000;"> Pay Advance Amount  ₹500 </a></marquee>
+    
+                <?php
+                }}}
+                ?>
+            
             </table>
-                
-            <?php
-                }}
-            $qu=mysqli_query($con,"SELECT * FROM `payment` WHERE  `name`='$ah'");
-            if (mysqli_num_rows($qu) > 0){
-            while($row5=mysqli_fetch_array($qu)){
-            $t=$row5['payment_status'];
-            }
-            if($t=='pending'){?>
-            <marquee ><a href="paymentpage.php" style="color:#FF0000;">Advance Payment ₹500 is Pending </a></marquee>
-            <?php }
-            else{}
-            }else{?>
-            <marquee ><a href="paymentpage.php" style="color:#FF0000;"> Pay Advance Amount  ₹500 </a></marquee>
-
-            <?php
-            }
-            ?>
-                
-             
         </div>
 
         <div id="id01" class="modal">

@@ -5,14 +5,14 @@ $ah=$_SESSION['dd'];
 $rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
 while ($tid = mysqli_fetch_array($rid)) {
     $id = $tid['uid'];
+    $tid = $tid['id'];
+    $_SESSION['storeid']=$tid;
     
 }
 $pi=mysqli_query($con,"SELECT * FROM `tbl_addstaff` WHERE `id`='$id'");
-while ($spic = mysqli_fetch_array($pi)) {
-    
-    $spic = $spic['img'];
-    echo "<script language= 'JavaScript'>alert(' . $spic . ');</script>";
-}
+$userData=mysqli_fetch_assoc($pi);
+$spic=$userData['img'];
+
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -111,6 +111,19 @@ while ($spic = mysqli_fetch_array($pi)) {
                     <li><a class="link_name" href="rejectdetails.php">Rejected Users</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a href="applystaffleave.php">
+                <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
+                    <span class="link_name">Apply Leave</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="applystaffleave.php">Apply Leave</a></li>
+                </ul>
+            </li>
+
+
+
             
 
             <li>
@@ -122,7 +135,7 @@ while ($spic = mysqli_fetch_array($pi)) {
                         <div class="profile_name" ><a href="userlogin.php" style="color:white;"><i class='bx bx-log-out'></i>STAFF</a></div>
                       
                     </div>
-                    <img src="staff pic/<?php echo $spic; ?>" height="100px" width="100px"/>
+                    <img src="./staff pic/<?php echo $spic; ?>" height="100px" width="100px"/>
                 </div>
             </li>
         </ul>
