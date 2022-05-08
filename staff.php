@@ -5,8 +5,7 @@ $ah=$_SESSION['dd'];
 $rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
 while ($tid = mysqli_fetch_array($rid)) {
     $id = $tid['uid'];
-    $tid = $tid['id'];
-    $_SESSION['storeid']=$tid;
+    $_SESSION['storeid']=$id;
     
 }
 $pi=mysqli_query($con,"SELECT * FROM `tbl_addstaff` WHERE `id`='$id'");
@@ -122,7 +121,15 @@ $spic=$userData['img'];
                 </ul>
             </li>
 
-
+            <li>
+                <a href="viewstaffleavestatus.php">
+                <i class='bx bx-calendar-minus' style='color:#ffffff'  ></i>
+                    <span class="link_name">Leave Status</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="viewstaffleavestatus.php">Leave Status</a></li>
+                </ul>
+            </li>
 
             
 

@@ -36,7 +36,7 @@ if(isset($_SESSION['wmsession'])!= session_id()){
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" class="active">
+                <a href="#" >
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
@@ -58,6 +58,27 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                     <li><a   href="staffdetails.php">Staff Details</a></li>
                     <li><a   href="driverdetails.php">Driver Details</a></li>
                 </ul>
+            </li>
+
+            <li>
+                <div class="iocn-link">
+                <a href="staffleave.php">
+                <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
+                    <span class="link_name">Staff Leave 
+                    <?php
+                    $qu = mysqli_query($con,"SELECT * FROM `tbl_leave` WHERE `status` = '0'");
+                    if(mysqli_num_rows($qu)>0){
+                    ?><span class="badge  rounded-pill bg-danger ">New</span></span>
+                    <?php
+                    }
+                    ?>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                    <ul class="sub-menu link_name " >
+                    <li><a   href="approvedstaffleave.php">Approved Leave</a></li>
+                    <li><a   href="rejectedstaffleave.php">Rejected Leave</a></li>
+                    </ul>
             </li>
 
             <li>

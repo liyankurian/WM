@@ -15,7 +15,6 @@ $spic=$userData['img'];
 if (isset($_POST['submit'])) {
     
     $dob1=$_POST['dob1'];
-    
     $dob2=$_POST['dob2'];
     $rsn=$_POST['rsn'];
     $query = mysqli_query($con,"INSERT INTO `tbl_leave`( `uid`, `startdate`, `enddate`, `reason`) VALUES ('$uid','$dob1','$dob2','$rsn')");
@@ -72,7 +71,7 @@ if (isset($_POST['submit'])) {
    
     .details {
         position: absolute;
-        top: 50%;
+        top: 30%;
         left: 30%;
         margin: -25px 0 0 -25px;
         padding: 12px 20px;

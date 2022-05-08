@@ -1,12 +1,13 @@
 <?php
 include 'hconnect.php';
 session_start();
-if(isset($_SESSION["wmsession"]) != session_id()){
-    header("Location:index.php");
+if(isset($_SESSION['wmsession'])!= session_id()){
+    header("location: ./userlogin.php");
     die();
-}
-else{
+}else{
+    
 ?>
+
 
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -35,12 +36,12 @@ else{
         </div>
         <ul class="nav-links">
             <li>
-                <a href="adminpanel.php" class="active">
+                <a href="#" >
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="adminpanel.php">Dashboard</a></li>
+                    <li><a class="link_name" href="#">Dashboard</a></li>
                 </ul>
             </li>
             <li>
@@ -51,14 +52,14 @@ else{
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul class="sub-menu  subitem">
-                    <li><a href="addstaff.php ">Add Staff</a></li>
-                    <li><a href="addriver.php">Add Driver</a></li>
-                    <li><a href="staffdetails.php">Staff Details</a></li>
-                    <li><a href="driverdetails.php">Driver Details</a></li>
+                <ul class="sub-menu link_name " >
+                    <li><a   href="addstaff.php">Add Staff</a></li>
+                    <li><a   href="addriver.php">Add Driver</a></li>
+                    <li><a   href="staffdetails.php">Staff Details</a></li>
+                    <li><a   href="driverdetails.php">Driver Details</a></li>
                 </ul>
             </li>
-            
+
             <li>
                 <div class="iocn-link">
                 <a href="staffleave.php">
@@ -79,9 +80,6 @@ else{
                     <li><a   href="rejectedstaffleave.php">Rejected Leave</a></li>
                     </ul>
             </li>
-            
-
-            
 
             <li>
                 <div class="profile-details">
@@ -89,7 +87,7 @@ else{
                         <!--<img src="image/profile.jpg" alt="profileImg">-->
                     </div>
                     <div class="name-job">
-                        <div class="profile_name"><a href="userlogin.php" style="color:white;"><i class='bx bx-log-out'></i>Admin</a></div>
+                        <div class="profile_name" ><a href="logout.php" style="color:white;"><i class='bx bx-log-out'></i>Admin</a></div>
                     </div>
                     <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
                 </div>
@@ -100,63 +98,67 @@ else{
         <nav>
             <div class="home-content">
                 <i class='bx bx-menu'></i>
-                <span class="text">Staff Details</span>
+                <span class="text">Dashboard</span>
             </div>
             
         </nav>
-
-        <div class="home-sub" style="height:auto; ">
-            <div class="overview-boxes " >
-                <div class="form bg-light  mt-5" id="form" style="height:auto; width:auto;">
-                    <table class="table table-bordered">
-                        <thead>
+        <div class="home-sub mt-5">
+            <div class="details m-3">
+                <h3>Leave Status</h3>
+                <table class="table table-bordered">
+                    <tr>
+                    <th style="width:20px;">Index</th>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Reason</i></th>
+                    <th colspan="2">Proceed</th>
+                    </tr>
+                    
+                    <?php
+                    $no=1;
+                        $l1=mysqli_query($con,"SELECT * FROM `tbl_leave` ");
+                        
+                        while($l2=mysqli_fetch_array($l1)){
+                            $uid=$l2['uid']; 
+                        }
+                        $l3=mysqli_query($con,"SELECT a.email,b.name,c.startdate,c.enddate,c.reason,c.status FROM tbl_register a INNER JOIN tbl_addstaff b INNER JOIN tbl_leave c WHERE a.uid=b.id and b.id=c.uid and b.id='$uid' and c.status='1' ");
+                        if(mysqli_num_rows($l3)>0){
+                        while($l4=mysqli_fetch_array($l3)){
+                           
+                            ?>
                             <tr>
-                                <th scope="col">Index</th>
-                                <th scope="col">Fullname</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Date of birth</th>
-                                <th scope="col">Phone</th>
-                                <th scope="col">Alternative Phone</th>
-                                <th scope="col">Joining Date</th>
-                                <th scope="col">Address</th>
-                                <th scope="col">Qualification</th>
-                                <th scope="col">Image</th>
-                            </tr>
-                        </thead>
-                        </tr>
-                        </thead>
-                        <?php
-                        $no=1;
-                        $res = mysqli_query($con, "SELECT a.id,a.name, a.dob, a.phone, a.alph, a.joindate, a.address, a.educ, a.img, b.status,b.email FROM tbl_addstaff a INNER JOIN tbl_register b where a.id=b.uid");
-
-                        while ($row = mysqli_fetch_array($res)) { ?>
-
-                            <tr>
-                                <td><?php echo $no; ?></td>
-                                <td><?php echo $row["name"]; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                                <td><?php echo $row["dob"]; ?></td>
-                                <td><?php echo $row["phone"]; ?></td>
-                                <td><?php echo $row["alph"]; ?></td>
-                                <td><?php echo $row["joindate"]; ?></td>
-                                <td><?php echo $row["address"]; ?></td>
-                                <td><?php echo $row["educ"]; ?></td>
-                                <td><img src="staff pic/<?php echo $row["img"]; ?>" height="100px" width="100px"/></td>
-
-                                <td><?php if($row['status']==0)
-                                {
-                                     echo '<p><a id="dbtn" href="delete.php?xyz='.$row['id'].'&status=1">Enable</a></p>';
-                                    }
-                    else{ echo '<p><a id="ebtn" href="delete.php?xyz='.$row['id'].'&&status=0">Disable</a></p>';}?></TD>
-                            </tr>
-                        <?php
+                        <td style="width:20px;"><?php echo $no;?></td>
+                        <td><?php echo $l4["name"]; ?></td>
+                        <td><?php echo $l4["email"]; ?></td>
+                        <td><?php echo $l4["startdate"]; ?></td>
+                        <td><?php echo $l4["enddate"]; ?></td>
+                        <td><?php echo $l4["reason"]; ?></td>
+                        <td><input type="submit" name="approve" value="Approve" class="bg-primary  text-white"></td>
+                        
+                    </tr>
+                    <?php
                         $no++;
                         }
+                    } else{
                         ?>
-                    </table>
-                </div>
+                    
+                           <tr><th colspan="6" class="rec">No Leave</th> </tr>
+                            <?php
+                        }
+                        ?>
+                    
+                        
+                        
+                </table>
+                    
+                    
             </div>
         </div>
+
+
+        
     </section>
     <script>
         let arrow = document.querySelectorAll(".arrow");

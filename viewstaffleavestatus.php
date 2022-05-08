@@ -104,12 +104,22 @@ $spic=$userData['img'];
             </li>
 
             <li>
-                <a href="staffleave.php">
+                <a href="applystaffleave.php">
                 <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
                     <span class="link_name">Apply Leave</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="staffleave.php">Apply Leave</a></li>
+                    <li><a class="link_name" href="applystaffleave.php">Apply Leave</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="viewstaffleavestatus.php">
+                <i class='bx bx-calendar-minus' style='color:#ffffff'  ></i>
+                    <span class="link_name">Leave Status</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="viewstaffleavestatus.php">Leave Status</a></li>
                 </ul>
             </li>
             </ul>
@@ -185,19 +195,8 @@ $spic=$userData['img'];
                         <?php
                         }
                         ?>
-                        <td><a href="viewstaffleavestatus.php ?lid=<?php echo $leave["id"]; ?>" id="delete" name="delete"><i class='bx bx-trash' style='color:#c10606'  ></i></a></td>
-                        <?php
+                        <td><a href="leavedelete.php ?lid=<?php echo $leave["id"]; ?>" id="delete" name="delete"><i class='bx bx-trash' style='color:#c10606'  ></i></a></td>
                         
-                        if (isset($_GET['delete'])) {
-                            echo '<script>alert("Deleted")</script>';
-                        $id=$_GET['lid'];
-                        $del=mysqli_query($con,"DELETE FROM `tbl_leave` WHERE `id`='$id'");
-                        if($del)
-                        {
-                            echo "<script language= 'JavaScript'>alert('hhhhhh');</script>";
-                        }
-                    }
-                            ?>
                         
                     </tr>
                     <?php

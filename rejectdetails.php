@@ -100,6 +100,26 @@ $ah=$_SESSION['dd'];
                     <li><a class="link_name" href="rejectdetails.php">Rejected Users</a></li>
                 </ul>
             </li>
+
+            <li>
+                <a href="applystaffleave.php">
+                <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
+                    <span class="link_name">Apply Leave</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="applystaffleave.php">Apply Leave</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="viewstaffleavestatus.php">
+                <i class='bx bx-calendar-minus' style='color:#ffffff'  ></i>
+                    <span class="link_name">Leave Status</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="viewstaffleavestatus.php">Leave Status</a></li>
+                </ul>
+            </li>
             
 
             <li>
@@ -165,7 +185,8 @@ $ah=$_SESSION['dd'];
                                 <td><?php echo $row["apno"]; ?></td>
                                 <td><?php echo $row["address"]; ?></td>  
                                 <td><a href="rejectmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                                <th scope="col"><button class="btn btn-danger" type="submit">Rejected User</button></th>
+                                <th scope="col"><span class="p-1" style="background:red; color:white;">Rejected User</span></th>
+                                
                                 <td><?php echo $row["reason"]; ?></td>
                         </tr>     
                     <?php
