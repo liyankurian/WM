@@ -13,7 +13,7 @@ if (isset($_POST['probtn'])) {
     $email=$_POST["email"];
     $pass=$_POST["pass"];
     
-    $query = mysqli_query($con,"INSERT INTO `tbl_companyreg`(`cname`, `cidno`, `regno`, `addr`, `distr`, `city`, `pin`, `cont`, `email`, `pass`, `status`) VALUES ('$cname','$cidno','$regno','$addr','$distr','$city','$pin','$cont','$email','$pass','1')");
+    $query = mysqli_query($con,"INSERT INTO `tbl_companyreg`(`cname`, `cidno`, `regno`, `addr`, `distr`, `city`, `pin`, `cont`, `email`, `pass`, `status`) VALUES ('$cname','$cidno','$regno','$addr','$distr','$city','$pin','$cont','$email','$pass')");
     if($query)
     {
     echo '<script type="text/javascript"> alert("Register Successffully!!");window.location.href= "clogin.php";</script>';

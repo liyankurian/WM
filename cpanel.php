@@ -66,6 +66,16 @@ $aw=$_SESSION['ww'];
             </li>
 
             <li>
+                <a href="creport.php">
+                <i class='bx bxs-report' style='color:#ffffff'  ></i>
+                    <span class="link_name">Report</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="creport.php.php">Report</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <div class="profile-details" style="width: 251px;">
                     
                     <div class="name-job" >
@@ -80,7 +90,7 @@ $aw=$_SESSION['ww'];
         <nav>
             <div class="home-content">
                 <i class='bx bx-menu'></i>
-                <h1><?php echo $aw; ?></h1>
+                <h1><?php echo $ah; ?></h1>
             </div>
             
         </nav>
@@ -88,6 +98,7 @@ $aw=$_SESSION['ww'];
         <div class="home-sub">
             <div class="overview-boxes ">
             <h3>Welcome to the Dashboard !</h3>
+            
             </div>
         </div>
 

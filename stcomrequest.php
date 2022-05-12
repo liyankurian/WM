@@ -36,11 +36,9 @@ $spic=$userData['img'];
         let b2=document.querySelector('edtn');
     </script>
     <style>
-    .home-sub .overview-boxes{
+    .home-sub{
     display: flex;
     flex-wrap: wrap;
-    padding: 0 20px;
-    margin-bottom: 16px;
     flex-direction: column;
     }
     .rec{
@@ -157,11 +155,11 @@ $spic=$userData['img'];
             </li>
         </ul>
     </div>
-    <section class="home-section">
+    <section class="home-section m-3">
         <nav >
             <div class="home-content">
                 <i class='bx bx-menu'></i>
-                <span class="text">Dashboard</span>
+                <span class="text">Company Request</span>
             </div>
             <h5  class="mt-3"><?php echo $ah; ?></h5>
         </nav>
@@ -176,17 +174,17 @@ $spic=$userData['img'];
                 unset($_SESSION['msg']);
             }
             ?>
-            <div class="form bg-light  mt-5 p-0" id="form" style="height:38vw; width:auto;">
+            <div class="form bg-light  mt-3 " id="form" style="height:auto; width:auto;">
                     <table class="table table-bordered">
                         <thead>
                             <tr>
-                                <th colspan="6" style="text-align:center; color:crimson">User Request</th>
+                                <th colspan="6" style="text-align:center; color:crimson">Company Request</th>
                             </tr>
                             <tr>
                                 <th scope="col">Index</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">Apartment Name</th>
-                                <th scope="col">Apartment Number</th>
+                                <th scope="col">Company Name</th>
+                                <th scope="col">Company ID</th>
+                                <th scope="col">Registration ID</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">More</th>
                             </tr>
@@ -195,7 +193,7 @@ $spic=$userData['img'];
                         
                         <?php
                         $no=1;
-                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='0' ");
+                        $res = mysqli_query($con, "SELECT `id`,`cname`, `cidno`, `regno`, `addr` FROM `tbl_companyreg` WHERE  `status`='0' ");
                         if(mysqli_num_rows($res)<1)
                         {
                             ?> <tr><th colspan="6" class="rec">No Records</th> </tr>
@@ -208,11 +206,11 @@ $spic=$userData['img'];
                         while ($row = mysqli_fetch_array($res)) { ?>
                         <tr>
                                 <td><?php echo $no; ?></td>
-                                <td><?php echo $row["email"]; ?></td>
-                                <td><?php echo $row["apname"]; ?></td>
-                                <td><?php echo $row["apno"]; ?></td>
-                                <td><?php echo $row["address"]; ?></td>  
-                                <td><a href="userdetails.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                                <td><?php echo $row["cname"]; ?></td>
+                                <td><?php echo $row["cidno"]; ?></td>
+                                <td><?php echo $row["regno"]; ?></td>
+                                <td><?php echo $row["addr"]; ?></td>  
+                                <td><a href="companydetails.php ?caab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
                         </tr>     
                     <?php
                         $no++;
@@ -220,47 +218,7 @@ $spic=$userData['img'];
                     }
                         ?>           
             </div>
-            <div class="form bg-light  mt-5" id="form" style="height:auto; width:auto; margin-top:7vw;">
-                    <table class="table table-bordered" style="margin-top:7vw;">
-                        <thead>
-                            <tr>
-                                <th colspan="6" style="text-align:center;margin-top:7vw; color:crimson">PickUp Updates</th>
-                            </tr>
-                            <tr>
-                                <th scope="col">Index</th>
-                                <th scope="col">Email</th>
-                                <th scope="col">PickUp StartDate</th>
-                                <th scope="col">PickUp Time</th>
-                                <th scope="col">PickUp Days</th>
-                                <th scope="col">More</th>
-                            </tr>
-                        </thead>
-                        <?php
-                        $no=1;
-                        $pick = mysqli_query($con, "SELECT b.email,a.uid,a.pickupdate,a.pickuptime,a.pickupday,a.status FROM tbl_pickupdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='0' ");
-                        if(mysqli_num_rows($pick)<1)
-                        {
-                            ?> <tr><th colspan="6" class="rec">No Records</th> </tr>
-                            <?php
-                        }
-                        
-                        else
-                        {
-                            while ($pickrow = mysqli_fetch_array($pick)) { ?>
-                            <tr>
-                                <td><?php echo $no;?></td>
-                                <td><?php echo $pickrow["email"]; ?></td>
-                                <td><?php echo $pickrow["pickupdate"]; ?></td>
-                                <td><?php echo $pickrow["pickuptime"]; ?></td>
-                                <td><?php echo $pickrow["pickupday"]; ?></td>  
-                                <td><a href="acceptmore.php?aab=<?php echo $pickrow["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                        </tr> 
-                        <?php
-                        $no++;
-                        }
-                    }
-                        ?>  
-        </div>
+    
     </section>
     <script>
         let arrow = document.querySelectorAll(".arrow");

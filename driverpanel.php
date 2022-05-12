@@ -153,7 +153,7 @@ $spic=$userData['img'];
                     if($r=mysqli_fetch_array($qr1)){
                         ?>
                     <tr>
-                        <td><?php echo $r['apname'];?><br><span class=" blinking badge rounded-pill bg-danger ">New User</span></td>
+                        <td><?php echo $r['apname'];?><br></td>
                         
                         <td><?php echo $r['address'];?></td>
                         <td><?php echo $r['dist'];?></td>
@@ -163,7 +163,7 @@ $spic=$userData['img'];
                         <td><?php echo $r['altmob'];?></td>
                         <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input
                                     class="bg-primary text-white" type="submit" value="More Details"></a></td>
-                        <td><button class="primary">Collected</button></td>
+                        <td><a href="collect.php ?usid=<?php echo $r["uid"]; ?>"><button class="btn btn-danger">Collect</button></a></td>
                         
                     </tr>
                     <?php  
@@ -175,7 +175,7 @@ $spic=$userData['img'];
                     if($r=mysqli_fetch_array($qr1)){
                         ?>
                     <tr>
-                        <td><?php echo $r['apname'];?></td>
+                        <td><?php echo $r['apname'];?><span class=" blinking badge rounded-pill bg-danger ">New User</span></td>
                         <td><?php echo $r['address'];?></td>
                         <td><?php echo $r['dist'];?></td>
                         <td><?php echo $r['city'];?></td>
@@ -184,7 +184,7 @@ $spic=$userData['img'];
                         <td><?php echo $r['altmob'];?></td>
                         <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input
                                     class="bg-primary text-white" type="submit" value="More Details"></a></td>
-                        <td><button class="primary">Collected</button>
+                        <td><button class="btn btn-danger">Collect</button>
                         </td>
                         
                     </tr>

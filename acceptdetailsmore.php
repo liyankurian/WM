@@ -250,7 +250,7 @@ $id=$_GET['aab'];
                                 <th scope="col" style="height:4vh">Driver Assigned </th>
                                 <td><?php echo $pickrow["assign"]; ?></td>
                             </tr>
-                            <form action="assigndriver.php" method="post">
+                            <form action="assigndriver.php" method="POST">
                             <tr>
                                 <th scope="col" >Change Assigned Driver </th>
                                 <td colspan="2" style="height:4vh; text-align:center" >
