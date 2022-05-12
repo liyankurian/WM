@@ -171,15 +171,15 @@ if (isset($_POST['submit'])) {
             <table class="table table-bordered">
                 <tr>
                     <th>Start Date:</th>
-                    <td><input type="date" name="dob1" id="floatingInput"  ></td>
+                    <td><input type="date" min=<?=date('Y-m-d');?> max='2045-01-01' name="dob1" id="floatingInput" required  ></td>
                 </tr>
                 <tr>
                     <th>End Date:</th>
-                    <td> <input type="date" name="dob2" id="floatingInput" ></td>
+                    <td> <input type="date" min=<?=date('Y-m-d');?> max='2045-01-01' name="dob2" id="floatingInput" required ></td>
                 </tr>
                 <tr>
                     <th>Reason</th>
-                    <td><input type="text" name="rsn" placeholder="Enter the Reason"></td>
+                    <td><input type="text" name="rsn" placeholder="Enter the Reason" required></td>
                 </tr>
                 <tr>
                    <td colspan="2"><input style='margin:0 100px 0 100px;' type="submit"  name="submit" value="Apply " class="btn btn-primary"></td> 

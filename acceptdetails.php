@@ -2,7 +2,15 @@
 include 'hconnect.php';
 session_start();
 $ah=$_SESSION['dd'];
-
+$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
+while ($tid = mysqli_fetch_array($rid)) {
+    $id = $tid['uid'];
+    $_SESSION['storeid']=$id;
+    
+}
+$pi=mysqli_query($con,"SELECT * FROM `tbl_addstaff` WHERE `id`='$id'");
+$userData=mysqli_fetch_assoc($pi);
+$spic=$userData['img'];
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -122,7 +130,7 @@ $ah=$_SESSION['dd'];
                     <div class="name-job">
                         <div class="profile_name" ><a href="userlogin.php" style="color:white;"><i class='bx bx-log-out'></i>STAFF</a></div>
                     </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
+                    <img src="./staff pic/<?php echo $spic; ?>" height="100px" width="100px"/>
                 </div>
             </li>
         </ul>

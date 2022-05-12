@@ -10,10 +10,9 @@ $uid=$row['id'];
 if (isset($_POST['btn'])) {
     
     $pd=$_POST['pd'];
-    $pt=$_POST['rad'];
-    $pday=$_POST['pday'];
+    
 
-    $query = mysqli_query($con,"INSERT INTO `tbl_pickupdetails`( `uid`, `pickupdate`, `pickuptime`, `pickupday`) VALUES ('$uid','$pd','$pt','$pday')");
+    $query = mysqli_query($con,"INSERT INTO `tbl_pickupdetails`( `uid`, `pickupdate`, `pickuptime`, `pickupday`) VALUES ('$uid','$pd','Evening','Daily')");
     if($query){
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("",Pickup details added successfully","success");';
@@ -386,15 +385,15 @@ if (isset($_POST['btn'])) {
             <table>
                 <tr>
                     <td>PickUp Started Date:</td>
-                    <td><label><?php echo $row['pickupdate'] ?></label></td>
+                    <td><label><?php echo $row['pickupdate']?></label></td>
                 </tr>
                 <tr>
                     <td>PickUp Time:</td>
-                    <td><label><?php echo $row['pickuptime'] ?></label></td>
+                    <td><label><?php echo  "Evening" ?></label></td>
                 </tr>
                 <tr>
                     <td>PickUp Days:</td>
-                    <td><label><?php echo $row['pickupday'] ?></label></td>
+                    <td><label><?php echo "Daily" ?></label></td>
                 </tr>
                 <?php
                 
@@ -426,24 +425,17 @@ if (isset($_POST['btn'])) {
                     <label for="uname"><b>PickUp Date</b></label>
                     <input type="date" min=<?=date('Y-m-d');?> max='2045-01-01' placeholder="Pickup date" name="pd" required>
                     <br>
-                    <label for="psw"><b>PickUp Time</b></label><br>
-                    <div class="rd">
-                        <input style="margin-top:7px;" type="radio" value="Morning" name="rad" id="opt1" class="hidden" />
-                        <label>Morning</label>
-                        <input style="margin-top:7px; margin-left:61px;" value="Evening" type="radio" name="rad"
-                            id="opt2" class="hidden" />
-                        <label>Evening</label>
+                    <label for="uname"><b>PickUp Time</b></label>
+                    <div class="day">
+                        <label style="color:gray;" >Evening</label>
                     </div>
                     <label for="uname"><b>PickUp days</b></label>
                     <div class="day">
-                        <div class="opt1"><input style="margin-top:7px;" type="radio" value="Monday,Wednesday,Friday" name="pday" id="opt1" class="hidden" />
-                            <label>Monday,Wednesday,Friday</label><br>
-                        </div>
-                        <div class="opt1"><input style="margin-top:7px; " value="Tuesday,Thursday,Saturday" type="radio" name="pday" id="opt2" class="hidden" />
-                            <label>Tuesday,Thursday,Saturday</label>
-                        </div>
+                        <label style="color:gray;">Daily Collection</label>
                     </div>
-                    <input  type="submit" class="btn" name="btn" id="btn"></input>
+                    <input   type="submit"  class="btn" name="btn" id="btn"></input>
+                    </div>
+                   
                 </div>
             </form>
         </div>

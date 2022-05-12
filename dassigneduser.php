@@ -1,9 +1,22 @@
+<?php
+include 'hconnect.php';
+session_start();
+$ah=$_SESSION['dd'];
+$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
+while ($tid = mysqli_fetch_array($rid)) {
+    $id = $tid['uid'];
+    
+}
+$pi=mysqli_query($con,"SELECT * FROM `tbl_driverdetails` WHERE `id`='$id'");
+$userData=mysqli_fetch_assoc($pi);
+$spic=$userData['img'];
+?>
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
-
 <head>
     <meta charset="UTF-8">
-    <title> Driver Panel </title>
+    <title> User Panel </title>
     <link rel="stylesheet" href="./css/style3.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -35,15 +48,15 @@
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" class="active">
+                <a href="driverpanel.php" class="active">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Dashboard</a></li>
+                    <li><a class="link_name" href="driverpanel.php">Dashboard</a></li>
                 </ul>
             </li>
-            <li>
+             <li>
                 <a href="dassigneduser.php" class="active">
                     <i class='bx bx-user-pin' style='color:#ffffff'  ></i>
                     <span class="link_name">Assigned Users</span>
@@ -51,7 +64,7 @@
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="dassigneduser.php">Assigned Users</a></li>
                 </ul>
-            </li>
+            </li> 
 
             <li>
                 <div class="profile-details">
@@ -62,7 +75,7 @@
                         <div class="profile_name"><a href="logout.php" style="color:white;"><i
                                     class='bx bx-log-out'></i>Driver</a></div>
                     </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
+                    <img src="./staff pic/<?php echo $spic; ?>" height="100px" width="100px"/>
                 </div>
             </li>
         </ul>
@@ -73,38 +86,58 @@
                 <i class='bx bx-menu'></i>
                 <span class="text">Driver Dashboard</span>
             </div>
+            <h4><?php echo $ah; ?></h4>
         </nav>
-        <div class="row1 mt-5">
-            <h4>PickUp Request</h4>
-            <table>
+        <div class="row1  ">
+            <?php
+            $sql = "SELECT * FROM tbl_pickupdetails WHERE assign='$ah' AND status='1'";
+            $result = mysqli_query($con, $sql);
+            $resultCheck = mysqli_num_rows($result);
+            if ($resultCheck > 0) {
+                
+            ?>
+        <div class="form bg-light   m-4" id="form" style="height:auto; width:auto;">
+                    <table class="table table-bordered">
+                    <tr>
+                    <th colspan="11" style="text-align:center; ">Assigned User</th>
+                    </tr>
+                    <tr>
+                    <th>Apartment Name</th>
+                    <th>Apartment Id</th>
+                    <th>Apartment Address</th>
+                    <th>District</th>
+                    <th>City</th>
+                    <th>Pincode</th>
+                    <th scope="col">More</th>
+                    </tr>
+                <?php
+                while ($row = mysqli_fetch_assoc($result)) {
+                    $aid = $row['uid'];
+                $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
+                if(mysqli_num_rows($qr1)>0)
+                {
+                if($r=mysqli_fetch_array($qr1)){
+                                    
+                ?>
+
                 <tr>
-                    <td>Customer Name</td>
-                    <td><label>data from database</label></td>
+                    <td><?php echo $r['apname'];?></td>
+                    <td><?php echo $r['apno'];?></td>
+                    <td><?php echo $r['address'];?></td>
+                    <td><?php echo $r['dist'];?></td>
+                    <td><?php echo $r['city'];?></td>
+                    <td><?php echo $r['pin'];?></td>
+                    <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
                 </tr>
-                <tr>
-                    <td>Customer Address</td>
-                    <td><label>data from database</label></td>
-                </tr>
-                <tr>
-                    <td>Customer Pincode</td>
-                    <td><label>data from database</label></td>
-                </tr>
-                <tr>
-                    <td>Customer Phone Number</td>
-                    <td><label>data from database</label></td>
-                </tr>
-                <tr>
-                    <td>Customer Alternate Phone Number</td>
-                    <td><label>data from database</label></td>
-                </tr>
-                <tr>
-                    <td>PickUp Starting date</td>
-                    <td><label>data from database</label></td>
-                </tr>
-                <tr>
-                    <td>PickUp dates</td>
-                    <td><label>data from database</label></td>
-                </tr>
+                <?php  
+                } }else{
+                    echo "<script>alert('ddd')</script>";
+                    }
+                }
+            }else{
+                echo "Not Assigned to Anyone Yet";
+            }
+            ?>
             </table>
         </div>
     </section>

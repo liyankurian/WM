@@ -45,21 +45,25 @@ $aw=$_SESSION['ww'];
             <img id="logo" src="./pic/wm.png" />
         </div>
         <ul class="nav-links">
+        <li>
+                <a href="cviewprofile.php">
+                <i class='bx bx-group'></i>
+                    <span class="link_name">Profile</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="cviewprofile.php">Profile</a></li>
+                </ul>
+            </li>
             
             <li>
-                <div class="iocn-link">
-                    <a href="cviewprofile.php">
-                        <i class='bx bx-group'></i>
-                        <span class="link_name">Profile</span>
-                    </a>
-                </div>
+                <a href="cochangepassword.php">
+                <i class='bx bx-lock-open-alt' style='color:#ffffff'  ></i>
+                    <span class="link_name">Change Password</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="cochangepassword.php">Change Password</a></li>
+                </ul>
             </li>
-            <div class="iocn-link">
-                    <a href="cochangepassword.php">
-                    <i class="fa-solid fa-passport"></i>
-                        <span class="link_name">Change Password</span>
-                    </a>
-                </div>
 
             <li>
                 <div class="profile-details" style="width: 251px;">
@@ -76,7 +80,7 @@ $aw=$_SESSION['ww'];
         <nav>
             <div class="home-content">
                 <i class='bx bx-menu'></i>
-                <h1><?php echo $ah; ?></h1>
+                <h1><?php echo $aw; ?></h1>
             </div>
             
         </nav>

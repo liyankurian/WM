@@ -114,6 +114,26 @@ $id=$_GET['aab'];
             </li>
 
             <li>
+                <a href="applystaffleave.php">
+                <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
+                    <span class="link_name">Apply Leave</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="applystaffleave.php">Apply Leave</a></li>
+                </ul>
+            </li>
+
+            <li>
+                <a href="viewstaffleavestatus.php">
+                <i class='bx bx-calendar-minus' style='color:#ffffff'  ></i>
+                    <span class="link_name">Leave Status</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="viewstaffleavestatus.php">Leave Status</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <div class="profile-details">
                     <div class="profile-content">
                         <!--<img src="image/profile.jpg" alt="profileImg">-->

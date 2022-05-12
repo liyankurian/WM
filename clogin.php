@@ -70,7 +70,7 @@ $c = $_POST["pass"];
             <input type="password" id="password" name="pass" placeholder="Enter Password" required>
             <span></span>
             <input type="submit" name="reg" value="LOGIN">
-            <h6> Create an account? <b><a href="re_company.php">Register here </a></b></h6>
+            <h6> Create an account? <b><a href="reg_company.php">Register here </a></b></h6>
           </form>
         </div>
       </div>

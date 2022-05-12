@@ -22,22 +22,27 @@ $spic=$userData['img'];
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- icons -->
-    <link rel="stylesheet"
-        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
     <!--Bootstrap js-->
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
-        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
-        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
-    </script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
 <style>
     .row1 {
         margin-left: 30px;
     }
+    .blinking{
+    animation:blinkingText 1.2s infinite;
+}
+@keyframes blinkingText{
+    0%{     color: #fff;    }
+    49%{    color: #fff; }
+    60%{    color: transparent; }
+    99%{    color:transparent;  }
+    100%{   color: #fff;    }
+}
 </style>
 </head>
 
@@ -56,7 +61,7 @@ $spic=$userData['img'];
                     <li><a class="link_name" href="#">Dashboard</a></li>
                 </ul>
             </li>
-            <!-- <li>
+             <li>
                 <a href="dassigneduser.php" class="active">
                     <i class='bx bx-user-pin' style='color:#ffffff'  ></i>
                     <span class="link_name">Assigned Users</span>
@@ -64,7 +69,7 @@ $spic=$userData['img'];
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="dassigneduser.php">Assigned Users</a></li>
                 </ul>
-            </li> -->
+            </li> 
 
             <li>
                 <div class="profile-details">
@@ -89,56 +94,83 @@ $spic=$userData['img'];
             <h4><?php echo $ah; ?></h4>
         </nav>
         <div class="row1  ">
-            <?php
-            $sql = "SELECT * FROM tbl_pickupdetails WHERE assign='$ah' AND status='1'";
+        <?php
+            date_default_timezone_set('Asia/Kolkata');
+            $curdate=date("Y-m-d");
+            $sql = "SELECT * FROM tbl_pickupdetails WHERE  pickupdate='$curdate' AND  assign='$ah' AND status='1'";
             $result = mysqli_query($con, $sql);
             $resultCheck = mysqli_num_rows($result);
-            if ($resultCheck > 0) {
-                
             ?>
         <div class="form bg-light   m-4" id="form" style="height:auto; width:auto;">
-                    <table class="table table-bordered">
-                    <tr>
-                    <th colspan="11" style="text-align:center; ">Assigned User</th>
+                <table class="table table-bordered">
+                   <tr>
+                    <th colspan="11" style="text-align:center; ">Today PickUp</th>
                     </tr>
                     <tr>
                     <th>Apartment Name</th>
-                    <th>Apartment Id</th>
                     <th>Apartment Address</th>
                     <th>District</th>
                     <th>City</th>
                     <th>Pincode</th>
+                    <th>Phone No</th>
+                    <th>Alternative No</th>
                     <th scope="col">More</th>
+                    <TH>Collection Status</TH>
                     </tr>
-                <?php
+                    <?php
+                
+                    while ($row = mysqli_fetch_assoc($result)) {
+                    $aid = $row['uid'];
+                    if ($resultCheck > 0) {
+                    $qr1=mysqli_query($con,"SELECT * FROM `tbl_userdetails` WHERE `uid`=$aid");
+                    if($r=mysqli_fetch_array($qr1)){
+                        ?>
+                        <tr>
+                            <td><?php echo $r['apname'];?></td>
+                            <td><?php echo $r['apno'];?></td>
+                            <td><?php echo $r['address'];?></td>
+                            <td><?php echo $r['dist'];?></td>
+                            <td><?php echo $r['city'];?></td>
+                            <td><?php echo $r['pin'];?></td>
+                            <td><?php echo $r['mob'];?></td>
+                            <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                            <td><button class="primary">Collected</button>
+                            </td>
+                            <td>
+                            <span class=" blinking badge rounded-pill bg-danger ">New User</span>
+                            </td>
+                            <td></td>
+                            
+                        </tr>
+                        
+                        <?php  
+                } 
+                }}
+
+                $s = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate<'$curdate' AND  assign='$ah' AND status='2'");
+                if(mysqli_num_rows($s)>0)
                 while ($row = mysqli_fetch_assoc($result)) {
                     $aid = $row['uid'];
-                $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
-                if(mysqli_num_rows($qr1)>0)
+                    $qr2=mysqli_query($con,"SELECT * FROM `tbl_userdetails` WHERE `uid`=$aid");
+                    if($re=mysqli_fetch_array($qr2)){
                 {
-                if($r=mysqli_fetch_array($qr1)){
-                                    
-                ?>
-
-                <tr>
-                    <td><?php echo $r['apname'];?></td>
-                    <td><?php echo $r['apno'];?></td>
-                    <td><?php echo $r['address'];?></td>
-                    <td><?php echo $r['dist'];?></td>
-                    <td><?php echo $r['city'];?></td>
-                    <td><?php echo $r['pin'];?></td>
-                    <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                </tr>
-                <?php  
-                } }else{
-                    echo "<script>alert('ddd')</script>";
-                    }
-                }
-            }else{
-                echo "Not Assigned to Anyone Yet";
-            }
-            ?>
-            </table>
+                
+                        ?>
+                        <tr>
+                            <td><?php echo $re['apname'];?></td>
+                            <td><?php echo $re['apno'];?></td>
+                            <td><?php echo $re['address'];?></td>
+                            <td><?php echo $re['dist'];?></td>
+                            <td><?php echo $re['city'];?></td>
+                            <td><?php echo $re['pin'];?></td>
+                            <td><?php echo $re['mob'];?></td>
+                            <td><a href="duserdetails.php?aab=<?php echo $re["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                            <td><button class="btn primary">Collect</button></td>
+                        </tr>
+                        
+                        <?php }}}?>
+        
+        </table>
         </div>
     </section>
     <script>
