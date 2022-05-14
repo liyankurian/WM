@@ -235,7 +235,15 @@ $uid=$row['id'];
                     <li><a class="link_name" href="viewprofile.php">Profile</a></li>
                 </ul>
             </li>
-
+            <li>
+                <a href="ucollectstatus.php" class="active">
+                <i class='bx bx-trash'></i>
+                    <span class="link_name" href="paymentpage.php">Collection Status</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="ucollectstatus.php">Collection Status</a></li>
+                </ul>
+            </li>
             <li>
                 <a href="paymentpage.php" class="active">
                 <i class='bx bx-credit-card' style='color:#ffffff'  ></i>

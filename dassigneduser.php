@@ -67,6 +67,16 @@ $spic=$userData['img'];
             </li> 
 
             <li>
+                <a href="dcollection.php" class="active">
+                <i class='bx bx-collection' style='color:#ffffff'  ></i>
+                    <span class="link_name">Collection Details</span>
+                </a>
+                <ul class="sub-menu blank">
+                    <li><a class="link_name" href="dcollection.php">Collection Details</a></li>
+                </ul>
+            </li>
+
+            <li>
                 <div class="profile-details">
                     <div class="profile-content">
                         <!--<img src="image/profile.jpg" alt="profileImg">-->
@@ -90,7 +100,7 @@ $spic=$userData['img'];
         </nav>
         <div class="row1  ">
             <?php
-            $sql = "SELECT * FROM tbl_pickupdetails WHERE assign='$ah' AND status='1'";
+            $sql = "SELECT * FROM tbl_pickupdetails WHERE assign='$ah' ";
             $result = mysqli_query($con, $sql);
             $resultCheck = mysqli_num_rows($result);
             if ($resultCheck > 0) {

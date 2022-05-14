@@ -10,9 +10,10 @@ $uid=$row['id'];
 if (isset($_POST['btn'])) {
     
     $pd=$_POST['pd'];
-    
+    $pt=$_POST['rad'];
+    $pday=$_POST['pday'];
 
-    $query = mysqli_query($con,"INSERT INTO `tbl_pickupdetails`( `uid`, `pickupdate`, `pickuptime`, `pickupday`) VALUES ('$uid','$pd','Evening','Daily')");
+    $query = mysqli_query($con,"INSERT INTO `tbl_pickupdetails`( `uid`, `pickupdate`, `pickuptime`, `pickupday`) VALUES ('$uid','$pd','$pt','$pday')");
     if($query){
         echo '<script type="text/javascript">';
         echo 'setTimeout(function () { swal("",Pickup details added successfully","success");';
@@ -37,7 +38,7 @@ if (isset($_POST['btn'])) {
     else
     {
         echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Pickup details not added successfully","error");';
+        echo 'setTimeout(function () { swal("Pickup details added successfully","error");';
             echo '}, 1000);</script>';
         // echo '
         // <script type="text/javascript">
@@ -72,7 +73,8 @@ if (isset($_POST['btn'])) {
     <!-- icons -->
     <!-- <link rel="stylesheet" -->
         <!-- href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css"> -->
-        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+      rel="stylesheet">
     <!--Bootstrap-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
@@ -89,7 +91,25 @@ if (isset($_POST['btn'])) {
     </script>
     <script src="jquery-3.3.1.min.js"></script>
   <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
+    <!--Payment-->
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+
+
     <style>
+
+            table {
+            font-family: arial, sans-serif;
+            border-collapse: collapse;
+            width: 100%;
+            }
+
+            td, th {
+            border: 1px solid #dddddd;
+            text-align: left;
+            padding: 8px;
+            }
+
     .r {
         margin-left: 30px;
     }
@@ -108,6 +128,16 @@ if (isset($_POST['btn'])) {
         border: 1px solid #ccc;
         box-sizing: border-box;
     }
+    label{
+    display: inline-block;
+    line-height: 2.2em;
+    padding: 0 0.62em;
+    
+    border-radius: 0.25em;
+    background-color: #00b33c;
+    font-family: arial, sans-serif;
+    font-size: 0.8em;
+ }
 .request{
     padding: 2vw;
     display: grid;
@@ -268,12 +298,12 @@ if (isset($_POST['btn'])) {
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" class="active">
+                <a href="userpanel.php" class="active">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Dashboard</a></li>
+                    <li><a class="link_name" href="userpanel.php">Dashboard</a></li>
                 </ul>
             </li>
             <li>
@@ -282,7 +312,7 @@ if (isset($_POST['btn'])) {
                     <span class="link_name">Profile</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="viewprofile.php">Profile</a></li>
+                    <li><a class="link_name" href="paymentpage.php">Profile</a></li>
                 </ul>
             </li>
 
@@ -295,11 +325,10 @@ if (isset($_POST['btn'])) {
                     <li><a class="link_name" href="ucollectstatus.php">Collection Status</a></li>
                 </ul>
             </li>
-
             <li>
                 <a href="paymentpage.php" class="active">
                 <i class='bx bx-credit-card' style='color:#ffffff'  ></i>
-                    <span class="link_name" href="paymentpage.php">Payment</span>
+                    <span class="link_name">Payment</span>
                 </a>
                 <ul class="sub-menu blank">
                     <li><a class="link_name" href="paymentpage.php">Payment</a></li>
@@ -319,6 +348,7 @@ if (isset($_POST['btn'])) {
                 </div>
             </li>
         </ul>
+        
     </div>
     <section class="home-section">
         <nav>
@@ -328,148 +358,50 @@ if (isset($_POST['btn'])) {
             </div>
             <h5  class="mt-3"><?php echo $ah; ?></h5>
         </nav>
-        <div class="r mt-5 ">
-            <div class="request">
-                <h5 class="head">Request Status :</h5>
-                <?php  
-                $query88=mysqli_query($con,"SELECT 'uid', `status`, `reason` FROM `tbl_userdetails` where `uid`='$uid'");
-                
-                while($row1 = mysqli_fetch_array($query88))
-                {
-                $s=$row1['status'];
-                $r=$row1['reason'];
-                }
-                if($s==0){?>
-                <button class="sta btn-sm"  style="background-color:#ffc107; color:white;">Pending</button>
-                <?php }
-                elseif($s==1)
-                {
-                $query2=mysqli_query($con,"SELECT * FROM `tbl_pickupdetails` WHERE `uid`='$uid'");
-                if(mysqli_num_rows($query2)>0){
-                    
+
+        <div class="details">
+            <H3>Todays Collection Status</H3>
+            <table >
+                <tr>
+                    <Th>Index </Th>
+                    <Th>Date</Th>
+                    <Th>Status</Th>
+                    <th>Collected date/time</th>
+                </tr>
+                <tr>
+                    <?php
+                    $no=1;
+                    $curd=date("Y-m-d");
+                    $qu=mysqli_query($con,"SELECT `uid`, `updated_date` FROM `tbl_pickupdetails` WHERE `updated_date`='$curd' AND `uid`='$uid'");
+                    if($qu)
+                    {
+                        $ss=mysqli_query($con,"SELECT `uid`,`status`,`date` FROM `tbl_collection` WHERE `uid`='$uid' and `status`='collected'");
+                        if($ss)
+                        {
+                        while ($uow = mysqli_fetch_array($ss)){
+                        ?>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $curd; ?></td>
+                            <td><label ><?php echo $uow['status'] ?></label></td>
+                            <td><?php echo $uow['date'] ?></td>
+                        </tr>
+
+                        <?php
+                        }
+                    }
+                    else
+                    {
+                        echo "cc";
+                    }
+                    }
+                    else
+                    {
+                        echo "cdcdcd";
+                    }
                     ?>
-                    
-                <input type="submit" value="Accepted"  class="sta btn-sm" style="width:auto;"disabled/><br>
-                
-                 <?php 
-                }else{?>
-                    <!--Bootstrap tooltip-->
-                <script>
-                $(function () {
-                $('[data-toggle="tooltip"]').tooltip()
-                })
-                </script> 
-                    <input type="submit" value="Accepted"   data-toggle="tooltip" data-placement="bottom" title="Click the button for pickup details"  style="width:auto;" onclick="document.getElementById('id01').style.display='block'"/><br>
-                <?php }
-                
-                ?>
-                
-                <?php
-                }
-                else{
-                ?>
-               
-                <button class="btn btn-danger btn-sm"  style="width:auto;">Rejected </button>
-                <h5 class="rr">Reason for rejection:<h5 style="margin-left: 0vw;"><?php echo $r ?></h5></h5>
-                <?php
-                }
-                ?>
-            </div>
-        </div>
-        
-        
-            
-            <?php
-                            //echo "<script>alert('ggy')</script>";
-                $res = mysqli_query($con,"SELECT `pickupdate`, `pickuptime`, `pickupday` FROM `tbl_pickupdetails` where `uid`='$uid'");
-                if(mysqli_num_rows($res)>0){
-                   
-
-                if($row=mysqli_fetch_array($res))
-                { 
-                    // echo "<script>alert('ggy')</script>"; 
-                
-            ?>
-            <div class="details">
-            <H3>PickUp Details</H3>
-            <table>
-                <tr>
-                    <td>PickUp Started Date:</td>
-                    <td><label><?php echo $row['pickupdate']?></label></td>
-                </tr>
-                <tr>
-                    <td>PickUp Time:</td>
-                    <td><label><?php echo  "Evening" ?></label></td>
-                </tr>
-                <tr>
-                    <td>PickUp Days:</td>
-                    <td><label><?php echo "Daily" ?></label></td>
-                </tr>
-                <?php
-                
-                $qu=mysqli_query($con,"SELECT * FROM `payment` WHERE  `name`='$ah'");
-                if (mysqli_num_rows($qu) > 0){
-                while($row5=mysqli_fetch_array($qu)){
-                $t=$row5['payment_status'];
-                }
-                if($t=='pending'){?>
-                <marquee ><a href="paymentpage.php" style="color:#FF0000;">Advance Payment ₹500 is Pending </a></marquee>
-                <?php }
-                else{}
-                }else{?>
-                <marquee ><a href="paymentpage.php" style="color:#FF0000;"> Pay Advance Amount  ₹500 </a></marquee>
-    
-                <?php
-                }}}
-                ?>
-            
             </table>
-        </div>
-
-        <div id="id01" class="modal">
-        
-            <form class="modal-content animate" action="#" method="post">
-                <div class="container">
-                <span class="material-icons" id="cls"  >close</span>
-                    <h3> PickUp Details</h3><br>
-                    <label for="uname"><b>PickUp Date</b></label>
-                    <input type="date" min=<?=date('Y-m-d');?> max='2045-01-01' placeholder="Pickup date" name="pd" required>
-                    <br>
-                    <label for="uname"><b>PickUp Time</b></label>
-                    <div class="day">
-                        <label style="color:gray;" >Evening</label>
-                    </div>
-                    <label for="uname"><b>PickUp days</b></label>
-                    <div class="day">
-                        <label style="color:gray;">Daily Collection</label>
-                    </div>
-                    <input   type="submit"  class="btn" name="btn" id="btn"></input>
-                    </div>
-                   
-                </div>
-            </form>
-        </div>
-
-        <script>
-        // Get the modal
-        var modal = document.getElementById('id01');
-        // When the user clicks anywhere outside of the modal, close it
-        window.onclick = function(event) {
-            if (event.target == modal) {
-                modal.style.display = "none";
-            }
-        }
-
-        var close = document.getElementById('cls');
-        window.onclick = function(event) {
-            if (event.target == close) {
-                model.style.display = "none";
-            }
-        }
-
-        
-        </script>
-
+            </div>
     </section>
     <script>
     let arrow = document.querySelectorAll(".arrow");
@@ -485,7 +417,11 @@ if (isset($_POST['btn'])) {
     sidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
+
     </script>
+
+    
+
 </body>
 
 </html>

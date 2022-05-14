@@ -122,113 +122,44 @@ $spic=$userData['img'];
             <h4><?php echo $ah; ?></h4>
         </nav>
         <div class="row1 ">
-            <?php
-            date_default_timezone_set('Asia/Kolkata');
-            $curdate=date("Y-m-d");
-            $sql = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate='$curdate' AND  assign='$ah' AND `status`='1' and `updated_date`<>'$curdate'");
-            $resultCheck = mysqli_num_rows($sql);
-            $curd=date('Y-m-d');
-            $s = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate<='$curdate' AND  assign='$ah' AND `status`='2' and `updated_date`<>'$curd'");
-            $resultCheck1=mysqli_num_rows($s);
-            ?>
-            <div class="form bg-light m-4" id="form" style="height:auto; width:auto;">
+        <div class="form bg-light m-4" id="form" style="height:auto; width:auto;">
                 <table class="table table-bordered ">
-                    <tr>
-                        <th colspan="11" style="text-align:center; ">Today PickUp</th>
-                    </tr>
-                    <tr>
+                <tr>
+                        <th colspan="11" style="text-align:center; ">Collection Details</th>
+                </tr>
+                <tr>
+                        <th>S.no</th>
+                        <th>Collection Date/time</th>
                         <th>Apartment Name</th>
-                        <th>Apartment Address</th>
                         <th>District</th>
                         <th>City</th>
-                        <th>Pincode</th>
-                        <th>Phone No</th>
-                        <th>Alternative No</th>
-                        <th scope="col">More</th>
-                        <TH colspan="2">Collection Status</TH>
-                    </tr>
-                    <?php
-                
-                
-                
-              
-
-                    
-                    if ($resultCheck > 0 || $resultCheck1 > 0 ) {
-                        
-                    while ($row = mysqli_fetch_array($s)){ 
-                    $aid = $row['uid'];
-                    $qr1=mysqli_query($con,"SELECT * FROM `tbl_userdetails` WHERE `uid`=$aid");
-                    if($r=mysqli_fetch_array($qr1)){
+                        <th>Collection Status</th>
+                </tr>
+                <?php
+                $no=1;
+                $csql = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  assign='$ah' ");
+                while ($crow = mysqli_fetch_array($csql)){ 
+                    $cuid=$crow['uid'];
+                }  
+                $cdata = mysqli_query($con, "SELECT a.date ,a.dassign, a.status,a.uid,b.apname,b.dist,b.city FROM tbl_collection a INNER JOIN tbl_userdetails b where a.uid=b.uid and a.dassign='$ah'  ");
+                 
+                while ($co = mysqli_fetch_array($cdata)){ 
                         ?>
-                    <tr>
-                        <td><?php echo $r['apname'];?><br></td>
-
-                        <td><?php echo $r['address'];?></td>
-                        <td><?php echo $r['dist'];?></td>
-                        <td><?php echo $r['city'];?></td>
-                        <td><?php echo $r['pin'];?></td>
-                        <td><?php echo $r['mob'];?></td>
-                        <td><?php echo $r['altmob'];?></td>
-                        <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input
-                                    class="bg-primary text-white" type="submit" value="More Details"></a></td>
+                        <tr>
+                            <td><?php echo $no++; ?></td>
+                            <td><?php echo $co['date']; ?></td>
+                            <td><?php echo $co['apname']; ?></td>
+                            <td><?php echo $co['dist']; ?></td>
+                            <td><?php echo $co['city']; ?></td>
+                            <td><?php echo $co['status']; ?></td>
+                        </tr>
                         <?php
-                        date_default_timezone_set('Asia/Kolkata');
-
-                        $curdate=date('Y-m-d H:i:s');
-                        $curd=date('Y-m-d');
-                                $a=$r["uid"];  
-                         $qq = mysqli_query($con,"SELECT * FROM `tbl_collection` WHERE `uid`='$a' AND  `date`='$curdate' ");
-                        
-                        if(mysqli_num_rows($qq)==0){
-
-                            
-                            ?>
-                        
-                        
-                        <td><a href="collect.php ?usid=<?php echo $a; ?>"><button
-                                    class="btn btn-danger">Collect</button></a></td>
-                        <?php
-                        }?>
-
-                    </tr>
-                    <?php  
                     }
-                }
-                while ($row = mysqli_fetch_array($sql)){
-                    $aid = $row['uid'];
-                    $qr1=mysqli_query($con,"SELECT * FROM `tbl_userdetails` WHERE `uid`=$aid");
-                    if($r=mysqli_fetch_array($qr1)){
-                        ?>
-                    <tr>
-                        <td><?php echo $r['apname'];?><span class=" blinking badge rounded-pill bg-danger ">New User</span></td>
-                        <td><?php echo $r['address'];?></td>
-                        <td><?php echo $r['dist'];?></td>
-                        <td><?php echo $r['city'];?></td>
-                        <td><?php echo $r['pin'];?></td>
-                        <td><?php echo $r['mob'];?></td>
-                        <td><?php echo $r['altmob'];?></td>
-                        <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input
-                                    class="bg-primary text-white" type="submit" value="More Details"></a></td>
-                        <?php
-                        $qq = mysqli_query($con,"SELECT `uid` `status` `date` FROM `tbl_collect` WHERE `uid`='$aid' AND  `date`='$curdate'");
-                         if($qq==0){
-                        ?>
-                        <td><a href="collect.php ?usid=<?php echo $r["uid"]; ?>"><button
-                                    class="btn btn-danger">Collect</button></a></td>
-                        <?php
-                        }?>
-                    </tr>
-                    <?php  
-                    }
-                }
                 
-                }else{?>
-                    <td>No Duty</td>
-                    <?php }?>
-
+                ?>
                 </table>
-            </div>
+
+        </div>
     </section>
     <script>
     let arrow = document.querySelectorAll(".arrow");
