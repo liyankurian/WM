@@ -122,11 +122,12 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                         
                         while($l2=mysqli_fetch_array($l1)){
                             $uid=$l2['uid']; 
-                        }
-                        $l3=mysqli_query($con,"SELECT a.email,b.name,c.startdate,c.enddate,c.reason,c.status FROM tbl_register a INNER JOIN tbl_addstaff b INNER JOIN tbl_leave c WHERE a.uid=b.id and b.id=c.uid and b.id='$uid' and c.status='1' ");
+                        
+                
+                        $l3=mysqli_query($con,"SELECT a.email,b.name,c.startdate,c.enddate,c.reason,c.status FROM tbl_register a INNER JOIN tbl_addstaff b INNER JOIN tbl_leave c WHERE a.uid='$uid' and b.id='$uid' and c.uid='$uid'   and c.status='1' ");
                         if(mysqli_num_rows($l3)>0){
-                        while($l4=mysqli_fetch_array($l3)){
-                           
+                            echo $uid;
+                        if($l4=mysqli_fetch_array($l3)){
                             ?>
                             <tr>
                         <td style="width:20px;"><?php echo $no;?></td>
@@ -136,18 +137,20 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                         <td><?php echo $l4["enddate"]; ?></td>
                         <td><?php echo $l4["reason"]; ?></td>
                         <td><input type="submit" name="approve" value="Approve" class="bg-primary  text-white"></td>
-                        
-                    </tr>
-                    <?php
+                        <?php
                         $no++;
                         }
-                    } else{
+                     } else{
                         ?>
                     
                            <tr><th colspan="6" class="rec">No Leave</th> </tr>
                             <?php
-                        }
+                        }}
+                        
                         ?>
+                    </tr>
+                    
+                   
                     
                         
                         

@@ -131,8 +131,7 @@ $spic=$userData['img'];
                         <th>S.no</th>
                         <th>Collection Date/time</th>
                         <th>Apartment Name</th>
-                        <th>District</th>
-                        <th>City</th>
+                        <th>Place</th>
                         <th>Collection Status</th>
                 </tr>
                 <?php
@@ -141,7 +140,7 @@ $spic=$userData['img'];
                 while ($crow = mysqli_fetch_array($csql)){ 
                     $cuid=$crow['uid'];
                 }  
-                $cdata = mysqli_query($con, "SELECT a.date ,a.dassign, a.status,a.uid,b.apname,b.dist,b.city FROM tbl_collection a INNER JOIN tbl_userdetails b where a.uid=b.uid and a.dassign='$ah'  ");
+                $cdata = mysqli_query($con, "SELECT a.date ,a.dassign, a.status,a.uid,b.apname,b.dist FROM tbl_collection a INNER JOIN tbl_userdetails b where a.uid=b.uid and a.dassign='$ah'  ");
                  
                 while ($co = mysqli_fetch_array($cdata)){ 
                         ?>
@@ -150,7 +149,6 @@ $spic=$userData['img'];
                             <td><?php echo $co['date']; ?></td>
                             <td><?php echo $co['apname']; ?></td>
                             <td><?php echo $co['dist']; ?></td>
-                            <td><?php echo $co['city']; ?></td>
                             <td><?php echo $co['status']; ?></td>
                         </tr>
                         <?php

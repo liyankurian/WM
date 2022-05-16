@@ -135,7 +135,6 @@ $ah=$_SESSION['dd'];
                                 <th scope="col">Apartment Number</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">District</th>
-                                <th scope="col">City</th>
                                 <th scope="col">Mobile</th>
                             </tr>
                         </thead>
@@ -146,7 +145,7 @@ $ah=$_SESSION['dd'];
                                     {
                                         $filtervalues = $_GET['search'];
                                         // echo "<script language= 'JavaScript'>alert(' $filtervalues ');</script>";
-                                        $query = "SELECT  b.email,a.apname, a.apno,a.address,a.dist,a.city,a.mob FROM tbl_userdetails a INNER JOIN tbl_register b  WHERE b.id=a.uid and CONCAT(b.email,a.apname,a.apno,a.address,a.dist,a.city,a.mob) LIKE '%$filtervalues%' ";
+                                        $query = "SELECT  b.email,a.apname, a.apno,a.address,a.dist,a.mob FROM tbl_userdetails a INNER JOIN tbl_register b  WHERE b.id=a.uid and CONCAT(b.email,a.apname,a.apno,a.address,a.dist,a.mob) LIKE '%$filtervalues%' ";
                                         // $query = "SELECT * FROM users WHERE CONCAT(firstname,lastname,email) LIKE '%$filtervalues%' ";
                                         $query_run = mysqli_query($con, $query);
                                         if(mysqli_num_rows($query_run) > 0)
@@ -160,7 +159,6 @@ $ah=$_SESSION['dd'];
                                                     <td><?= $items['apno']; ?></td>
                                                     <td><?= $items['address']; ?></td>
                                                     <td><?= $items['dist']; ?></td>
-                                                    <td><?= $items['city']; ?></td>
                                                     <td><?= $items['mob']; ?></td>
                                                     
                                                 </tr>

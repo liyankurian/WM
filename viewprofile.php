@@ -280,7 +280,7 @@ $uid=$row['id'];
             <div class="request">
             <div class="form bg-light  mt-5" id="form" style="height:auto; width:60vw; margin-left: 15vw">
             <?php
-                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist, a.city, a.pin, a.mob, a.altmob FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.uid='$uid'"); 
+                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist,  a.pin, a.mob, a.altmob FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.uid='$uid'"); 
                         while ($row = mysqli_fetch_array($res)) 
                         { ?>
                     <table class="table table-bordered prota">
@@ -303,13 +303,10 @@ $uid=$row['id'];
                                 <td><?php echo $row["address"]; ?></td>
                             </tr>
                             <tr>
-                                <th scope="col">District</th>
+                                <th scope="col">Place</th>
                                 <td><?php echo $row["dist"]; ?></td>
                             </tr>
-                            <tr>
-                                <th scope="col">City</th>
-                                <td><?php echo $row["city"]; ?></td>
-                            </tr>
+                            
                             <tr>
                                 <th scope="col">Pincode</th>
                                 <td><?php echo $row["pin"]; ?></td>

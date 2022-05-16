@@ -139,8 +139,7 @@ $spic=$userData['img'];
                     <tr>
                         <th>Apartment Name</th>
                         <th>Apartment Address</th>
-                        <th>District</th>
-                        <th>City</th>
+                        <th>Place</th>
                         <th>Pincode</th>
                         <th>Phone No</th>
                         <th>Alternative No</th>
@@ -166,7 +165,6 @@ $spic=$userData['img'];
 
                         <td><?php echo $r['address'];?></td>
                         <td><?php echo $r['dist'];?></td>
-                        <td><?php echo $r['city'];?></td>
                         <td><?php echo $r['pin'];?></td>
                         <td><?php echo $r['mob'];?></td>
                         <td><?php echo $r['altmob'];?></td>
@@ -204,7 +202,6 @@ $spic=$userData['img'];
                         <td><?php echo $r['apname'];?><span class=" blinking badge rounded-pill bg-danger ">New User</span></td>
                         <td><?php echo $r['address'];?></td>
                         <td><?php echo $r['dist'];?></td>
-                        <td><?php echo $r['city'];?></td>
                         <td><?php echo $r['pin'];?></td>
                         <td><?php echo $r['mob'];?></td>
                         <td><?php echo $r['altmob'];?></td>

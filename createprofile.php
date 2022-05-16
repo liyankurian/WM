@@ -14,13 +14,13 @@ if (isset($_POST['probtn'])) {
     $apno=$_POST["apno"];
     $add=$_POST["address"];
     $dis=$_POST["adis"];
-    $city=$_POST["ct"];
+    
     $pi=$_POST["pin"];
     $phno=$_POST["phn"];
     $alphn=$_POST["phn2"];
 
 
-$query = mysqli_query($con,"INSERT INTO `tbl_userdetails`(`uid`,`apname`, `apno`, `address`, `dist`, `city`, `pin`, `mob`, `altmob`,`status`) VALUES ('$uid','$apname','$apno','$add','$dis','$city','$pi','$phno','$alphn','0')");
+$query = mysqli_query($con,"INSERT INTO `tbl_userdetails`(`uid`,`apname`, `apno`, `address`, `dist`, `pin`, `mob`, `altmob`,`status`) VALUES ('$uid','$apname','$apno','$add','$dis','$pi','$phno','$alphn','0')");
 
 if($query)
     {
@@ -131,17 +131,7 @@ body {
             }
         }
 
-        function myFun3() {
-            let pa = document.getElementById('city');
-            var p = /^([\.\_a-zA-Z]+)([a-zA-Z ]+){1,20}$/;
-            if (pa.value.match(p)) {
-                span["four"].innerText = "";
-                span["four"].style.color = '#28fc7a';
-            } else {
-                span["four"].innerText = "Invalid city";
-                span["four"].style.color = 'red';
-            }
-        }
+        
         function myFun4() {
             let pa = document.getElementById('pin');
             var p = /^[1-9][0-9]{5}$/;
@@ -191,7 +181,7 @@ body {
         <div id="orderrequest">
         
             <form action="" class="orderform" method="POST">
-                <h1 class="text-center">Complete Profile</h1>
+                <h2 class="text-center">Complete Profile and Requesting for Bin</h2>
 
                 <!-- Progress bar -->
                 <div class="progressbar">
@@ -216,42 +206,25 @@ body {
                     <div class="input-group">
                         <label for="address"><b>Address</b></label>
                         <span id="three"></span>
-                        <input type="text" name="address" id="address" onkeyup="myFun2()" placeholder="Enter your Apartment Address" required />
+                        <textarea name="address" id="address" onkeyup="myFun2()" placeholder="Enter your Apartment Address" required></textarea>
                     </div>
                     
                     <div class="input-group">
-                        <label for="pickupinstructions"><b>District</b></label>
+                        <label for="pickupinstructions"><b>Place</b></label>
                         <select name="adis" id="adis" style="width:100%;" required onchange="myFunction2()">
-                            <option disabled selected>--SELECT A DISTRICT--</option>
+                            <option disabled selected>--SELECT THE PLACE--</option>
                             </option>
-                            <option value=" Alappuzha"> Alappuzha</option>
-                            <option value="Ernakulam">Ernakulam</option>
+                          
 
-                            <option value="Idukki">Idukki</option>
-                            <option value="Kannur">Kannur</option>
+                            <option value="Kanjirappally">Kanjirappally</option>
+                            <option value="Mundakayam,">Mundakayam</option>
 
-                            <option value="Kasaragod">Kasaragod</option>
-                            <option value="Kollam">Kollam</option>
-
-                            <option value="Kottayam">Kottayam</option>
-                            <option value="Kozhikode">Kozhikode</option>
-
-                            <option value="Malappuram">Malappuram</option>
-                            <option value="Palakkad">Palakkad</option>
-
-                            <option value="Pathanamthitta">Pathanamthitta</option>
-                            <option value="Thiruvananthapuram">Thiruvananthapuram</option>
-
-                            <option value="Thrissur">Thrissur</option>
-                            <option value="Wayanad">Wayanad</option>
+                            <option value="Ponkunnam">Ponkunnam</option>
+                            <option value="Erumeli">Erumeli</option>
                         </select>
                         <span></span>
                     </div>
-                    <div class="input-group">
-                        <label for="pickupinstructions"><b>City</b></label>
-                        <span id="four"></span>
-                        <input type="text" name="ct" id="city" onkeyup="myFun3()" placeholder="Enter your city" required />
-                    </div>
+                    
                     <div class="input-group">
                         <label for="pickupinstructions"><b>Pincode</b></label>
                         <span id="five"></span>

@@ -7,58 +7,7 @@ while($row=mysqli_fetch_array($query)){
 $uid=$row['id'];
 }
 
-if (isset($_POST['btn'])) {
-    
-    $pd=$_POST['pd'];
-    $pt=$_POST['rad'];
-    $pday=$_POST['pday'];
 
-    $query = mysqli_query($con,"INSERT INTO `tbl_pickupdetails`( `uid`, `pickupdate`, `pickuptime`, `pickupday`) VALUES ('$uid','$pd','$pt','$pday')");
-    if($query){
-        echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("",Pickup details added successfully","success");';
-            echo '}, 1000);</script>';
-        // echo '
-        //     <script type="text/javascript">
-            
-        //     $(document).ready(function(){
-            
-        //     swal({
-        //         position: "top-end",
-        //         type: "success",
-        //         title: "Your work has been saved",
-        //         showConfirmButton: false,
-        //         timer: 1500
-        //     })
-        //     });
-            
-        //     </script>
-        //     ';
-    }
-    else
-    {
-        echo '<script type="text/javascript">';
-        echo 'setTimeout(function () { swal("Pickup details added successfully","error");';
-            echo '}, 1000);</script>';
-        // echo '
-        // <script type="text/javascript">
-        
-        // $(document).ready(function(){
-        
-        // swal({
-        //     position: "top-end",
-        //     type: "error",
-        //     title: "Something went wrong",
-        //     showConfirmButton: false,
-        //     timer: 1500
-        // })
-        // });
-        
-        // </script>
-        // ';
-    }
-
-}
 ?>
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
@@ -154,14 +103,11 @@ if (isset($_POST['btn'])) {
 
     .details {
         position: absolute;
-        top: 50%;
-        left: 30%;
-        margin: -25px 0 0 -25px;
-        padding: 12px 20px;
         display: inline-block;
         border: 1px solid #ccc;
         box-sizing: border-box;
         display: block;
+        margin:10% 20% 20% 20%;
 
     }
 
@@ -359,7 +305,7 @@ if (isset($_POST['btn'])) {
             <h5  class="mt-3"><?php echo $ah; ?></h5>
         </nav>
 
-        <div class="details">
+        <div class="details ">
             <H3>Todays Collection Status</H3>
             <table >
                 <tr>
@@ -370,12 +316,25 @@ if (isset($_POST['btn'])) {
                 </tr>
                 <tr>
                     <?php
+                    date_default_timezone_set('Asia/Kolkata');
                     $no=1;
                     $curd=date("Y-m-d");
-                    $qu=mysqli_query($con,"SELECT `uid`, `updated_date` FROM `tbl_pickupdetails` WHERE `updated_date`='$curd' AND `uid`='$uid'");
-                    if($qu)
+                    $sql1=mysqli_query($con,"SELECT * FROM `tbl_pickupdetails` WHERE `uid`='$uid'");
+                    while ($xc = mysqli_fetch_array($sql1)) {
+                          $xuid = $xc['uid'];
+                         $xass=$xc['assign'];
+                         $xpidate=$xc['pickupdate'];
+                        }
+                    $x=mysqli_query($con,"SELECT `uid`,`assign` FROM `tbl_pickupdetails` WHERE `uid`='$uid' and `assign`<>''");
+                    if(mysqli_num_rows($x)>0)
                     {
-                        $ss=mysqli_query($con,"SELECT `uid`,`status`,`date` FROM `tbl_collection` WHERE `uid`='$uid' and `status`='collected'");
+                    $gg=mysqli_query($con,"SELECT `pickupdate` FROM `tbl_pickupdetails` WHERE `pickupdate`<'$curd' and `uid`='$uid'");
+                    if(mysqli_num_rows($gg)>0)
+                    {
+                    $qu=mysqli_query($con,"SELECT `uid`, `updated_date` FROM `tbl_pickupdetails` WHERE `updated_date`='$curd' AND `uid`='$uid'");
+                    if(mysqli_num_rows($qu)>0)
+                    {
+                        $ss=mysqli_query($con,"SELECT `uid`,`status`,DATE(`date`),`date`  FROM `tbl_collection` WHERE `uid`='$uid' and `status`='collected' and DATE(`date`)='$curd'");
                         if($ss)
                         {
                         while ($uow = mysqli_fetch_array($ss)){
@@ -390,15 +349,49 @@ if (isset($_POST['btn'])) {
                         <?php
                         }
                     }
-                    else
-                    {
-                        echo "cc";
-                    }
                     }
                     else
                     {
-                        echo "cdcdcd";
+                    ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td><?php echo $curd; ?></td>
+                                <td><label style="background-color:red; color:white;" >Not Collected</label></td>
+                                <td></td>
+                            </tr>
+    
+                    <?php      
                     }
+                }
+                else
+                {
+                    ?>
+                            <tr>
+                                
+                                <td colspan="4"><h3>PickUp Start date=<?php echo $xpidate ?></h3></td>
+                                
+                            </tr>
+    
+                     <?php      
+                }
+            }elseif ($xuid==$uid && $xass=='') {
+                    ?>
+                    <tr>
+                        
+                        <td colspan='4'>Not Assigned</td>
+                        
+                    </tr>
+                    <?php
+                }
+                else{
+                    ?>
+                    <tr>
+                        
+                        <td colspan="4">If your Accepted user,First Complete the pickUp details By presssing the accepted button in dashbord </td>
+                        
+                    </tr>
+                    <?php
+                }
                     ?>
             </table>
             </div>

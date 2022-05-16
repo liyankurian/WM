@@ -115,15 +115,14 @@ $spic=$userData['img'];
                     <th>Apartment Name</th>
                     <th>Apartment Id</th>
                     <th>Apartment Address</th>
-                    <th>District</th>
-                    <th>City</th>
+                    <th>Place</th>
                     <th>Pincode</th>
                     <th scope="col">More</th>
                     </tr>
                 <?php
                 while ($row = mysqli_fetch_assoc($result)) {
                     $aid = $row['uid'];
-                $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.city, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
+                $qr1=mysqli_query($con,"SELECT b.uid, b.apname, b.apno, b.address, b.dist, b.pin, b.mob, b.altmob ,a.pickupdate, a.pickuptime, a.pickupday,a.assign FROM tbl_pickupdetails a  inner join tbl_userdetails b WHERE b.uid='$aid'");
                 if(mysqli_num_rows($qr1)>0)
                 {
                 if($r=mysqli_fetch_array($qr1)){
@@ -135,7 +134,6 @@ $spic=$userData['img'];
                     <td><?php echo $r['apno'];?></td>
                     <td><?php echo $r['address'];?></td>
                     <td><?php echo $r['dist'];?></td>
-                    <td><?php echo $r['city'];?></td>
                     <td><?php echo $r['pin'];?></td>
                     <td><a href="duserdetails.php?aab=<?php echo $r["uid"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
                 </tr>

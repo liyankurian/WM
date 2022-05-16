@@ -192,10 +192,7 @@ label.ldesign {
                         <label for="pickupinstructions"><b>District</b></label>
                         <label class="ldesign"><?php echo $d["distr"]; ?></label>
                     </div>
-                    <div class="input-group">
-                        <label for="pickupinstructions"><b>City</b></label>
-                        <label class="ldesign"><?php echo $d["cont"]; ?></label>
-                    </div>
+                    
                     <div class="input-group">
                         <label for="pickupinstructions"><b>Pincode</b></label>
                         <label class="ldesign"><?php echo $d["pin"]; ?></label>

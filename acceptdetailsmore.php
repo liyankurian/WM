@@ -161,7 +161,7 @@ $id=$_GET['aab'];
             
             <div class="form bg-light mvp  mt-4" id="form" style="height:auto; width:auto;">
             <?php
-                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist, a.city, a.pin, a.mob, a.altmob FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and b.id='$id'");
+                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist, a.pin, a.mob, a.altmob FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and b.id='$id'");
                         
                         while ($row = mysqli_fetch_array($res)) { ?>
                     <table class="table table-bordered">
@@ -189,10 +189,6 @@ $id=$_GET['aab'];
                             <tr>
                                 <th scope="col">District</th>
                                 <td><?php echo $row["dist"]; ?></td>
-                            </tr>
-                            <tr>
-                                <th scope="col">City</th>
-                                <td><?php echo $row["city"]; ?></td>
                             </tr>
                             <tr>
                                 <th scope="col">Pincode</th>
