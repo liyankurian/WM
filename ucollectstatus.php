@@ -328,7 +328,7 @@ $uid=$row['id'];
                     $x=mysqli_query($con,"SELECT `uid`,`assign` FROM `tbl_pickupdetails` WHERE `uid`='$uid' and `assign`<>''");
                     if(mysqli_num_rows($x)>0)
                     {
-                    $gg=mysqli_query($con,"SELECT `pickupdate` FROM `tbl_pickupdetails` WHERE `pickupdate`<'$curd' and `uid`='$uid'");
+                    $gg=mysqli_query($con,"SELECT `pickupdate` FROM `tbl_pickupdetails` WHERE `pickupdate`<='$curd' and `uid`='$uid'");
                     if(mysqli_num_rows($gg)>0)
                     {
                     $qu=mysqli_query($con,"SELECT `uid`, `updated_date` FROM `tbl_pickupdetails` WHERE `updated_date`='$curd' AND `uid`='$uid'");

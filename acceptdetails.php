@@ -176,7 +176,7 @@ $spic=$userData['img'];
                                 <th scope="col">Apartment Number</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">More</th>
-                                <th style=" width:150px;" scope="col">Status</th>
+                                
                             </tr>
                         </thead>
                         </tr>
@@ -201,7 +201,7 @@ $spic=$userData['img'];
                                 <td><?php echo $row["apno"]; ?></td>
                                 <td><?php echo $row["address"]; ?></td>  
                                 <td><a href="acceptdetailsmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                                <th scope="col"><span class="p-1" style="background:green; color:white;">Accepted User</span></th>
+                               
                                 
                         </tr>     
                     <?php

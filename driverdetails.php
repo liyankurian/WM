@@ -140,13 +140,14 @@ session_start();
                                 <th scope="col">Address</th>
                                 <th scope="col">Image</th>
                                 <th scope="col">Linense Image</th>
+                                <th scope="col">Allocation</th>
                             </tr>
                         </thead>
                         </tr>
                         </thead>
                         <?php
                         $no=1;
-                        $res = mysqli_query($con, "SELECT a.id,a.name, a.dob, a.phone, a.alph, a.joindate, a.address, a.img, a.limg,b.email,b.status FROM tbl_driverdetails a INNER JOIN tbl_register b where a.id=b.uid");
+                        $res = mysqli_query($con, "SELECT a.id,a.name, a.dob, a.phone, a.alph, a.joindate, a.address, a.img,a.limg,a.allocation,b.email,b.status FROM tbl_driverdetails a INNER JOIN tbl_register b where a.id=b.uid");
                         
                         while ($row = mysqli_fetch_array($res)) { ?>
                              
@@ -161,6 +162,8 @@ session_start();
                                 <td><?php echo $row["address"]; ?></td>
                                 <td><img src="staff pic/<?php echo $row["img"]; ?>" height="100px" width="100px"/></td>
                                 <td><img src="staff pic/<?php echo $row["limg"]; ?>" height="100px" width="100px"/></td>
+                                <td><?php echo $row["allocation"]; ?></td>
+                                
 
                                 <td><?php if($row['status']==0)
                                 {

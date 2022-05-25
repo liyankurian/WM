@@ -12,9 +12,10 @@ if (isset($_POST['save'])) {
     $i = $_POST["jdob"];
     move_uploaded_file($_FILES["pho"]["tmp_name"], "staff pic/" . $_FILES["pho"]["name"]);
     move_uploaded_file($_FILES["lpho"]["tmp_name"], "staff pic/" . $_FILES["lpho"]["name"]);
+    $l = $_POST["loc"];
 
 
-    $query = mysqli_query($con, "INSERT INTO `tbl_driverdetails`(`name`, `dob`, `phone`, `alph`, `joindate`, `address`, `img`, `limg`) VALUES ('$a','$b','$d','$e','$i','$f','$g','$h')");
+    $query = mysqli_query($con, "INSERT INTO `tbl_driverdetails`(`name`, `dob`, `phone`, `alph`, `joindate`, `address`, `img`, `limg`,`allocation`) VALUES ('$a','$b','$d','$e','$i','$f','$g','$h','$l')");
     if ($query) {
         $qu = mysqli_query($con, "SELECT * FROM `tbl_driverdetails` ORDER BY id DESC LIMIT 1 ");
         while ($d1 = mysqli_fetch_array($qu)) {
@@ -204,9 +205,9 @@ else{
         </nav>
         <form action="#" method="POST" class="staff" enctype="multipart/form-data" onsubmit="return validate();">
             <div class="home-sub ">
-                <div class="form bg-light col-9 mt-5" id="form" style="margin-left:150px;">
+                <div class="form bg-light col-9 mt-3" id="form" style="margin-left:150px; height:auto;">
 
-                    <div class="d-flex justify-content-start mx-5 pt-5">
+                    <div class="d-flex justify-content-start mx-5 pt-4">
 
                         <h3>ADD Driver</h3>
                     </div>
@@ -264,6 +265,16 @@ else{
                                 
                             </div>
                         </label>
+                        <label class="form-control m-3 w-25 ">Assign to location
+                                <select name="loc" style="width:200px"; id="loc">
+                                <option disabled selected>Assign </option>
+                                    <option value="Ponkunnam">Ponkunnam</option>
+                                    <option value="Kanjirapally">Kanjirapally</option>
+                                    <option value="Mundakayam">Mundakayam</option>
+                                    <option value="Erumeli">Erumeli</option>
+                                </select>
+                        </label>
+                        
                     </div>
 
                 </div>

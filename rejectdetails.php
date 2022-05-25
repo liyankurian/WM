@@ -167,7 +167,6 @@ $spic=$userData['img'];
                                 <th scope="col">Apartment Number</th>
                                 <th scope="col">Address</th>
                                 <th scope="col">More</th>
-                                <th scope="col">Status</th>
                                 <th scope="col">Reason</th>
                             </tr>
                         </thead>
@@ -178,7 +177,7 @@ $spic=$userData['img'];
                         $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address,a.reason FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='2' ");
                         if(mysqli_num_rows($res)<1)
                         {
-                            ?> <tr><th colspan="6" class="rec">No Records</th> </tr>
+                            ?> <tr><th colspan="7" class="rec">No Records</th> </tr>
                             <?php
                         }
                         
@@ -193,8 +192,6 @@ $spic=$userData['img'];
                                 <td><?php echo $row["apno"]; ?></td>
                                 <td><?php echo $row["address"]; ?></td>  
                                 <td><a href="rejectmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
-                                <th scope="col"><span class="p-1" style="background:red; color:white;">Rejected User</span></th>
-                                
                                 <td><?php echo $row["reason"]; ?></td>
                         </tr>     
                     <?php
