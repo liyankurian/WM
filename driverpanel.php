@@ -10,6 +10,8 @@ while ($tid = mysqli_fetch_array($rid)) {
 $pi=mysqli_query($con,"SELECT * FROM `tbl_driverdetails` WHERE `id`='$id'");
 $userData=mysqli_fetch_assoc($pi);
 $spic=$userData['img'];
+$_SESSION['na']=$userData['name'];
+$a=$_SESSION['na'];
 ?>
 
 <!DOCTYPE html>
@@ -125,10 +127,10 @@ $spic=$userData['img'];
             <?php
             date_default_timezone_set('Asia/Kolkata');
             $curdate=date("Y-m-d");
-            $sql = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate='$curdate' AND  assign='$ah' AND `status`='1' and `updated_date`<>'$curdate'");
+            $sql = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate='$curdate' AND  assign='$a' AND `status`='1' and `updated_date`<>'$curdate'");
             $resultCheck = mysqli_num_rows($sql);
             $curd=date('Y-m-d');
-            $s = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate<='$curdate' AND  assign='$ah' AND `status`='2' and `updated_date`<>'$curd'");
+            $s = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  pickupdate<='$curdate' AND  assign='$a' AND `status`='2' and `updated_date`<>'$curd'");
             $resultCheck1=mysqli_num_rows($s);
             ?>
             <div class="form bg-light m-4" id="form" style="height:auto; width:auto;">

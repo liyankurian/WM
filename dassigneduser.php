@@ -1,8 +1,9 @@
 <?php
 include 'hconnect.php';
 session_start();
-$ah=$_SESSION['dd'];
-$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
+$a=$_SESSION['dd'];
+$ah=$_SESSION['na'];
+$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$a'");
 while ($tid = mysqli_fetch_array($rid)) {
     $id = $tid['uid'];
     

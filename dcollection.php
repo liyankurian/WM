@@ -1,8 +1,9 @@
 <?php
 include 'hconnect.php';
 session_start();
-$ah=$_SESSION['dd'];
-$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$ah'");
+$a=$_SESSION['dd'];
+$ah=$_SESSION['na'];
+$rid = mysqli_query($con, "SELECT * FROM `tbl_register` WHERE `email`='$a'");
 while ($tid = mysqli_fetch_array($rid)) {
     $id = $tid['uid'];
     
@@ -19,6 +20,11 @@ $spic=$userData['img'];
     <meta charset="UTF-8">
     <title> User Panel </title>
     <link rel="stylesheet" href="./css/style3.css">
+    <link rel="stylesheet" href="https://cdn.datatables.net/1.12.1/css/dataTables.bootstrap5.min.css">
+
+    
+    
+    
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -27,6 +33,7 @@ $spic=$userData['img'];
         href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
+
     <!--Bootstrap js-->
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
@@ -61,7 +68,44 @@ $spic=$userData['img'];
             color: #fff;
         }
     }
+    .custom-select-sm {
+    height: calc(1.5em + 0.5rem + 2px);
+    padding-top: 0.25rem;
+    padding-bottom: 0.25rem;
+    padding-left: 0.5rem;
+    font-size: .875rem;
+}
+.custom-select{
+    font-weight: 400;
+    line-height: 1.5;
+    color: #495057;
+    vertical-align: middle;
+}
+body {
+  margin: 2rem;
+}
+/* 
+th {
+  background-color: white;
+}
+tr:nth-child(odd) {
+  background-color: grey;
+}
+th, td {
+  padding: 0.5rem;
+}
+td:hover {
+  background-color: lightsalmon;
+} */
+
+.paginate_button {
+  border-radius: 0 !important;
+}
+
     </style>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+<script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
+
 </head>
 
 <body>
@@ -123,10 +167,9 @@ $spic=$userData['img'];
         </nav>
         <div class="row1 ">
         <div class="form bg-light m-4" id="form" style="height:auto; width:auto;">
-                <table class="table table-bordered ">
-                <tr>
-                        <th colspan="11" style="text-align:center; ">Collection Details</th>
+                <table class="table table-bordered  table-class " id= "datatableid" >
                 </tr>
+                <thead>
                 <tr>
                         <th>S.no</th>
                         <th>Collection Date/time</th>
@@ -134,6 +177,8 @@ $spic=$userData['img'];
                         <th>Place</th>
                         <th>Collection Status</th>
                 </tr>
+                </thead>
+                <tbody>
                 <?php
                 $no=1;
                 $csql = mysqli_query($con,"SELECT * FROM tbl_pickupdetails WHERE  assign='$ah' ");
@@ -154,12 +199,20 @@ $spic=$userData['img'];
                         <?php
                     }
                 
-                ?>
+                ?></tbody>
                 </table>
 
         </div>
     </section>
+   
     <script>
+    $(document).ready(function () {
+        $('#datatableid').DataTable();
+    });
+</script>
+
+    <script>
+    
     let arrow = document.querySelectorAll(".arrow");
     for (var i = 0; i < arrow.length; i++) {
         arrow[i].addEventListener("click", (e) => {
@@ -173,6 +226,11 @@ $spic=$userData['img'];
     sidebarBtn.addEventListener("click", () => {
         sidebar.classList.toggle("close");
     });
+    </script>
+
+    <script>
+
+
     </script>
 </body>
 

@@ -253,13 +253,14 @@ $id=$_GET['aab'];
                                 <select name="driver"  style="height:6vh;" id="driver">
                                 <option disabled selected>Assign to driver</option>
                                 <?php
-                                $dr = mysqli_query($con,"SELECT * FROM `tbl_register` where `role`='driver' ");
+                                $dr = mysqli_query($con,"SELECT a.name,a.allocation,b.dist FROM tbl_driverdetails a INNER JOIN tbl_userdetails b where a.allocation=b.dist and b.uid='$id' ");
                                 while ($dri = mysqli_fetch_array($dr)){
-                                ?>
-                                    <option value="<?php echo $dri['email'];?>"><?php echo $dri['email'];?></option>
-                                <?php
+                                    $na=$dri['name'];
+
                                 }
                                 ?>
+                                    <option value="<?php echo $na;?>"><?php echo $na;?></option>
+                                
                                 </select>
                                 <input type="hidden" name="id" value="<?php echo $id;?>">
                                 <button type="submit" class="btn btn-primary" name="asgn">Assign</button>

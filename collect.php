@@ -2,7 +2,7 @@
 include 'hconnect.php';
 session_start();
 $id=$_GET['usid'];
-$ah=$_SESSION['dd'];
+$ah=$_SESSION['na'];
 $curd=date('Y-m-d H:i:s');
 
 $as=mysqli_query($con,"UPDATE `tbl_pickupdetails` SET `status`='2',`updated_date`='$curd' WHERE `uid`='$id'");
