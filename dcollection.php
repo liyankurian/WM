@@ -106,6 +106,7 @@ td:hover {
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
 <script type="text/javascript" src="https://cdn.datatables.net/1.10.16/js/jquery.dataTables.min.js"></script>
 
+
 </head>
 
 <body>
@@ -167,8 +168,7 @@ td:hover {
         </nav>
         <div class="row1 ">
         <div class="form bg-light m-4" id="form" style="height:auto; width:auto;">
-                <table class="table table-bordered  table-class " id= "datatableid" >
-                </tr>
+                <table class="table table-bordered  table-class" id= "datatableid" >
                 <thead>
                 <tr>
                         <th>S.no</th>
@@ -186,7 +186,7 @@ td:hover {
                     $cuid=$crow['uid'];
                 }  
                 $cdata = mysqli_query($con, "SELECT a.date ,a.dassign, a.status,a.uid,b.apname,b.dist FROM tbl_collection a INNER JOIN tbl_userdetails b where a.uid=b.uid and a.dassign='$ah'  ");
-                 
+                
                 while ($co = mysqli_fetch_array($cdata)){ 
                         ?>
                         <tr>
@@ -204,7 +204,7 @@ td:hover {
 
         </div>
     </section>
-   
+
     <script>
     $(document).ready(function () {
         $('#datatableid').DataTable();

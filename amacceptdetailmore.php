@@ -1,14 +1,23 @@
 <?php
 include 'hconnect.php';
 session_start();
-$ah=$_SESSION['dd'];
 $id=$_GET['aab'];
+if(isset($_SESSION['wmsession'])!= session_id()){
+    header("location: ./userlogin.php");
+    die();
+}else{
+	
+	
+    
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
+
 <head>
     <meta charset="UTF-8">
-    <title> staff Dasboard </title>
+    <title> Admin Dasboard </title>
     <link rel="stylesheet" href="./css/style3.css">
     <!-- Boxiocns CDN Link -->
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
@@ -21,29 +30,15 @@ $id=$_GET['aab'];
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js"></script>
-
-    <script src="https://cdn.datatables.net/1.10.18/js/jquery.dataTables.min.js"></script>
-    <script src="https://cdn.datatables.net/1.10.18/js/dataTables.bootstrap4.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
-    
-   
-   
-    <script>
-        let b1=document.querySelector('bdtn');
-        let b2=document.querySelector('edtn');
-    </script>
-    <style>
-    .home-sub .overview-boxes{
+	<style>
+	.home-sub .overview-boxes{
     display: flex;
     flex-wrap: wrap;
     padding: 0 20px;
     margin-bottom: 16px;
     flex-direction: column;
     }
-    .modal-body input
+	.modal-body input
     {
         width: 80%;
     }
@@ -54,9 +49,7 @@ $id=$_GET['aab'];
         padding:4vw;
         border-radius: 2%;
     }
-
-
-    </style>
+	</style>
 </head>
 
 <body>
@@ -66,15 +59,14 @@ $id=$_GET['aab'];
         </div>
         <ul class="nav-links">
             <li>
-                <a href="staff.php" class="active">
+                <a href="adminpanel.php" >
                     <i class='bx bx-grid-alt'></i>
-                    <span class="link_name">Request</span>
+                    <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="staff.php">Request</a></li>
+                    <li><a class="link_name" href="adminpanel.php">Dashboard</a></li>
                 </ul>
             </li>
-            <!--
             <li>
                 <div class="iocn-link">
                     <a href="#">
@@ -89,49 +81,44 @@ $id=$_GET['aab'];
                     <li><a   href="staffdetails.php">Staff Details</a></li>
                     <li><a   href="driverdetails.php">Driver Details</a></li>
                 </ul>
-            </li>-->
-            
-            
-            
-            <li>
-                <a href="acceptdetails.php">
-                <i class="las la-user-check"></i>
-                    <span class="link_name">Accept Users</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="acceptdetails.php">Accept Users</a></li>
-                </ul>
             </li>
 
             <li>
-                <a href="rejectdetails.php">
-                    <i class="las la-user-times"></i>
-                    <span class="link_name">Rejected Users</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="rejectdetails.php">Rejected Users</a></li>
-                </ul>
-            </li>
-
-            <li>
-                <a href="applystaffleave.php">
+                <div class="iocn-link">
+                <a href="staffleave.php">
                 <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
-                    <span class="link_name">Apply Leave</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="applystaffleave.php">Apply Leave</a></li>
+                    <span class="link_name">Staff Leave 
+                    <?php
+                    $qu = mysqli_query($con,"SELECT * FROM `tbl_leave` WHERE `status` = '0'");
+                    if(mysqli_num_rows($qu)>0){
+                    ?><span class="badge  rounded-pill bg-danger ">New</span></span>
+                    <?php
+                    }
+                    ?>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                    <ul class="sub-menu link_name " >
+                    <li><a   href="approvedstaffleave.php">Approved Leave</a></li>
+                    <li><a   href="rejectedstaffleave.php">Rejected Leave</a></li>
+                    </ul>
+            </li>
+			
+			 <li>
+                <div class="iocn-link">
+                    <a href="#">
+                        <i class='bx bx-user' style='color:#ffffff'  ></i>
+                        <span class="link_name">Users</span>
+                    </a>
+                    <i class='bx bxs-chevron-down arrow'></i>
+                </div>
+                <ul class="sub-menu link_name " >
+				    <li><a   href="amacceptdetails.php">Approved Users</a></li>
+                    <li><a   href="amrejectdetails.php">Rejected Users</a></li>
                 </ul>
             </li>
-
-            <li>
-                <a href="viewstaffleavestatus.php">
-                <i class='bx bx-calendar-minus' style='color:#ffffff'  ></i>
-                    <span class="link_name">Leave Status</span>
-                </a>
-                <ul class="sub-menu blank">
-                    <li><a class="link_name" href="viewstaffleavestatus.php">Leave Status</a></li>
-                </ul>
-            </li>
+			
+			
 
             <li>
                 <div class="profile-details">
@@ -139,7 +126,7 @@ $id=$_GET['aab'];
                         <!--<img src="image/profile.jpg" alt="profileImg">-->
                     </div>
                     <div class="name-job">
-                        <div class="profile_name" ><a href="userlogin.php" style="color:white;"><i class='bx bx-log-out'></i>STAFF</a></div>
+                        <div class="profile_name" ><a href="logout.php" style="color:white;"><i class='bx bx-log-out'></i>Admin</a></div>
                     </div>
                     <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
                 </div>
@@ -147,20 +134,18 @@ $id=$_GET['aab'];
         </ul>
     </div>
     <section class="home-section">
-        <nav >
+        <nav>
             <div class="home-content">
                 <i class='bx bx-menu'></i>
                 <span class="text">Dashboard</span>
             </div>
-            <h5  class="mt-3 "><?php echo $ah; ?></h5>
-        </nav>
-        
-        <div class="home-sub">
-        
-            <div class="overview-boxes ">
             
-            <div class="form bg-light mvp  mt-4" id="form" style="height:auto; width:auto;">
-            <?php
+        </nav>
+
+        <div class="home-sub">
+            <div class="overview-boxes ">
+			<div class="form bg-light mvp  mt-4" id="form" style="height:auto; width:auto;">
+			<?php
                         $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist, a.pin, a.mob, a.altmob FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and b.id='$id'");
                         
                         while ($row = mysqli_fetch_array($res)) { ?>
@@ -206,7 +191,6 @@ $id=$_GET['aab'];
                                 <td><label class="btn btn-success">Accepted User</label></td>
                             </tr>
                         </thead>
-						</table>
                     <?php
                         }
                         ?>
@@ -247,65 +231,19 @@ $id=$_GET['aab'];
                                 <th scope="col" style="height:4vh">Driver Assigned </th>
                                 <td><?php echo $pickrow["assign"]; ?></td>
                             </tr>
-                            <form action="assigndriver.php" method="POST">
-                            <tr>
-                                <th scope="col" >Change Assigned Driver </th>
-                                <td colspan="2" style="height:4vh; text-align:center" >
-                                <select name="driver"  style="height:6vh;" id="driver">
-                                <option disabled selected>Assign to driver</option>
-                                <?php
-                                $dr = mysqli_query($con,"SELECT a.name,a.allocation,b.dist FROM tbl_driverdetails a INNER JOIN tbl_userdetails b where a.allocation=b.dist and b.uid='$id' ");
-                                while ($dri = mysqli_fetch_array($dr)){
-                                    $na=$dri['name'];
-
-                                }
-                                ?>
-                                    <option value="<?php echo $na;?>"><?php echo $na;?></option>
+                           
                                 
-                                </select>
-                                <input type="hidden" name="id" value="<?php echo $id;?>">
-                                <button type="submit" class="btn btn-primary" name="asgn">Assign</button>
-                            </td>
-                                </form>
-                                <?php
-                                if(isset($_POST['asgn']))
-                                {
-                                    //echo "<script>alert('Pickup details added successfully')</script>";
-                                    $as = mysqli_query($con, "UPDATE `tbl_pickupdetails` SET `status`='1' where `uid`='$id'");
-                                    if($as){
-                                        echo '<script type="text/javascript">';
-                                                echo 'setTimeout(function () { swal("Assigned successfully","success");';
-                                                    echo '}, 1000);</script>';
-                                        ?>
-                                        <?php
-                                        }
-                                    else
-                                            {
-                                                echo '<script type="text/javascript">';
-                                                echo 'setTimeout(function () { swal("Not Assigned successfully","error");';
-                                                    echo '}, 1000);</script>';
-                                            }
-                                }
-                                ?>
 
-                            </tr>
+                            
                        </thead>
-					   </table>
                        <?php
                }
             }
                 ?> 
-                 
+               
             </div>
         </div>
-    </div>
-    
     </section>
-       
-        </form>
-        </div>
-    
-
     <script>
         let arrow = document.querySelectorAll(".arrow");
         for (var i = 0; i < arrow.length; i++) {
@@ -320,13 +258,10 @@ $id=$_GET['aab'];
         sidebarBtn.addEventListener("click", () => {
             sidebar.classList.toggle("close");
         });
-
-
-        
-
-        
-
     </script>
 </body>
 
 </html>
+<?php
+}
+?>

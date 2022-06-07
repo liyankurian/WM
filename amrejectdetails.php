@@ -7,6 +7,8 @@ if(isset($_SESSION['wmsession'])!= session_id()){
 }else{
     
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -34,12 +36,12 @@ if(isset($_SESSION['wmsession'])!= session_id()){
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" >
+                <a href="adminpanel.php" >
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Dashboard</a></li>
+                    <li><a class="link_name" href="adminpanel.php">Dashboard</a></li>
                 </ul>
             </li>
             <li>
@@ -119,23 +121,47 @@ if(isset($_SESSION['wmsession'])!= session_id()){
 
         <div class="home-sub">
             <div class="overview-boxes ">
-                <div class="box m-5">
-                    <div class="right-side ">
-                        <div class="box-topic">Total User</div>
-                        <div class="number"><?php $qe = mysqli_query($con,"SELECT COUNT(*) FROM tbl_userdetails WHERE `status`='1' ");
-                        $row = mysqli_fetch_array($qe);
-                        echo $row[0];
-                         ?></div>
-                    </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/group.png" />
-                </div>
-                <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Daily Report </div>
-                        <a href="makedailyreport.php"><button type="button" class="btn btn-danger mt-3">View</button></a>
-                    </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/report-card.png" />
-                </div>
+            <table class="table table-bordered">
+                        <thead>
+                        <tr><th colspan="7" class="rec">Rejected Data</th></tr>
+                            <tr>
+                                <th scope="col">Index</th>
+                                <th scope="col">Email</th>
+                                <th scope="col">Apartment Name</th>
+                                <th scope="col">Apartment Number</th>
+                                <th scope="col">Address</th>
+                                <th scope="col">More</th>
+                                <th scope="col">Reason</th>
+                            </tr>
+                        </thead>
+                        
+                        <?php
+                        $no=1;
+                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address,a.reason FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='2' ");
+                        if(mysqli_num_rows($res)<1)
+                        {
+                            ?> <tr><th colspan="7" class="rec">No Records</th> </tr>
+                            <?php
+                        }
+                        
+                        else
+                        {
+                        
+                        while ($row = mysqli_fetch_array($res)) { ?>
+                        <tr>
+                                <td><?php echo $no; ?></td>
+                                <td><?php echo $row["email"]; ?></td>
+                                <td><?php echo $row["apname"]; ?></td>
+                                <td><?php echo $row["apno"]; ?></td>
+                                <td><?php echo $row["address"]; ?></td>  
+                                <td><a href="rejectmore.php?aab=<?php echo $row["id"]; ?>"> <input class="bg-primary text-white"  type="submit" value="More Details" ></a></td>
+                                <td><?php echo $row["reason"]; ?></td>
+                        </tr>     
+                    <?php
+                        $no++;
+                        }
+                    }
+                        ?>
             </div>
         </div>
     </section>

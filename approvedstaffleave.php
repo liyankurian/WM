@@ -103,7 +103,7 @@ if(isset($_SESSION['wmsession'])!= session_id()){
             
         </nav>
         <div class="home-sub mt-5">
-            <div class="details m-3">
+            <div class="details m-5">
                 <h3>Leave Status</h3>
                 <table class="table table-bordered">
                     <tr>

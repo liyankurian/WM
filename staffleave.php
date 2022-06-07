@@ -20,13 +20,18 @@ if(isset($_SESSION['wmsession'])!= session_id()){
     <link href='https://unpkg.com/boxicons@2.0.7/css/boxicons.min.css' rel='stylesheet'>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <!-- icons -->
-    <link rel="stylesheet" href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
+    <link rel="stylesheet"
+        href="https://maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.3.0/css/line-awesome.min.css">
     <!--Bootstrap-->
     <link rel="stylesheet" type="text/css" href="css/bootstrap/css/bootstrap.min.css">
     <!--Bootstrap js-->
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"
+        integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous">
+    </script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+        integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous">
+    </script>
 </head>
 
 <body>
@@ -36,7 +41,7 @@ if(isset($_SESSION['wmsession'])!= session_id()){
         </div>
         <ul class="nav-links">
             <li>
-                <a href="adminpanel.php" >
+                <a href="adminpanel.php">
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
@@ -52,33 +57,33 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-                <ul class="sub-menu link_name " >
-                    <li><a   href="addstaff.php">Add Staff</a></li>
-                    <li><a   href="addriver.php">Add Driver</a></li>
-                    <li><a   href="staffdetails.php">Staff Details</a></li>
-                    <li><a   href="driverdetails.php">Driver Details</a></li>
+                <ul class="sub-menu link_name ">
+                    <li><a href="addstaff.php">Add Staff</a></li>
+                    <li><a href="addriver.php">Add Driver</a></li>
+                    <li><a href="staffdetails.php">Staff Details</a></li>
+                    <li><a href="driverdetails.php">Driver Details</a></li>
                 </ul>
             </li>
 
             <li>
                 <div class="iocn-link">
-                <a href="staffleave.php">
-                <i class='bx bxs-calendar' style='color:#ffffff'  ></i>
-                    <span class="link_name">Staff Leave 
-                    <?php
+                    <a href="staffleave.php">
+                        <i class='bx bxs-calendar' style='color:#ffffff'></i>
+                        <span class="link_name">Staff Leave
+                            <?php
                     $qu = mysqli_query($con,"SELECT * FROM `tbl_leave` WHERE `status` = '0'");
                     if(mysqli_num_rows($qu)>0){
                     ?><span class="badge  rounded-pill bg-danger ">New</span></span>
-                    <?php
+                        <?php
                     }
                     ?>
                     </a>
                     <i class='bx bxs-chevron-down arrow'></i>
                 </div>
-                    <ul class="sub-menu link_name " >
-                    <li><a   href="approvedstaffleave.php">Approved Leave</a></li>
-                    <li><a   href="rejectedstaffleave.php">Rejected Leave</a></li>
-                    </ul>
+                <ul class="sub-menu link_name ">
+                    <li><a href="approvedstaffleave.php">Approved Leave</a></li>
+                    <li><a href="rejectedstaffleave.php">Rejected Leave</a></li>
+                </ul>
             </li>
 
             <li>
@@ -87,7 +92,8 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                         <!--<img src="image/profile.jpg" alt="profileImg">-->
                     </div>
                     <div class="name-job">
-                        <div class="profile_name" ><a href="logout.php" style="color:white;"><i class='bx bx-log-out'></i>Admin</a></div>
+                        <div class="profile_name"><a href="logout.php" style="color:white;"><i
+                                    class='bx bx-log-out'></i>Admin</a></div>
                     </div>
                     <img src="https://img.icons8.com/bubbles/100/000000/system-administrator-female.png" />
                 </div>
@@ -98,9 +104,9 @@ if(isset($_SESSION['wmsession'])!= session_id()){
         <nav>
             <div class="home-content">
                 <i class='bx bx-menu'></i>
-                
+
             </div>
-            
+
         </nav>
 
         <div class="home-sub mt-5">
@@ -108,15 +114,15 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                 <h3>Leave Status</h3>
                 <table class="table table-bordered">
                     <tr>
-                    <th style="width:20px;">Index</th>
-                    <th>Name</th>
-                    <th>Email</th>
-                    <th>Start Date</th>
-                    <th>End Date</th>
-                    <th>Reason</i></th>
-                    <th colspan="2">Proceed</th>
+                        <th style="width:20px;">Index</th>
+                        <th>Name</th>
+                        <th>Email</th>
+                        <th>Start Date</th>
+                        <th>End Date</th>
+                        <th>Reason</i></th>
+                        <th colspan="2">Proceed</th>
                     </tr>
-                    
+
                     <?php
                     $no=1;
                         $l1=mysqli_query($con,"SELECT * FROM `tbl_leave` ");
@@ -131,16 +137,18 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                         while($l4=mysqli_fetch_array($l3)){
                            
                             ?>
-                            <tr>
+                    <tr>
                         <td style="width:20px;"><?php echo $no;?></td>
                         <td><?php echo $l4["name"]; ?></td>
                         <td><?php echo $l4["email"]; ?></td>
                         <td><?php echo $l4["startdate"]; ?></td>
                         <td><?php echo $l4["enddate"]; ?></td>
                         <td><?php echo $l4["reason"]; ?></td>
-                        <td><a href="leaveapprove.php ?lp=<?php echo $id; ?>"><input type="submit" name="approve" value="Approve" class="bg-primary  text-white"></a></td>
-                        <td><a href="leavereject.php ?lp=<?php echo $id; ?>"><input type="submit" name="approve" value="Reject" class="bg-danger  text-white"></a></td>
-                    
+                        <td><a href="leaveapprove.php ?lp=<?php echo $id; ?>"><input type="submit" name="approve"
+                                    value="Approve" class="bg-primary  text-white"></a></td>
+                        <td><a href="leavereject.php ?lp=<?php echo $id; ?>"><input type="submit" name="approve"
+                                    value="Reject" class="bg-danger  text-white"></a></td>
+
                     </tr>
                     <?php
                         
@@ -149,34 +157,36 @@ if(isset($_SESSION['wmsession'])!= session_id()){
                     } 
                     else{
                         ?>
-                        
-                        <tr><th colspan="6" class="rec">No Leave</th> </tr>
-                            <?php
+
+                    <tr>
+                        <th colspan="6" class="rec">No Leave</th>
+                    </tr>
+                    <?php
                         }
                         ?>
-                    
-                        
-                        
+
+
+
                 </table>
-                    
-                    
+
+
             </div>
         </div>
     </section>
     <script>
-        let arrow = document.querySelectorAll(".arrow");
-        for (var i = 0; i < arrow.length; i++) {
-            arrow[i].addEventListener("click", (e) => {
-                let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
-                arrowParent.classList.toggle("showMenu");
-            });
-        }
-        let sidebar = document.querySelector(".sidebar");
-        let sidebarBtn = document.querySelector(".bx-menu");
-        console.log(sidebarBtn);
-        sidebarBtn.addEventListener("click", () => {
-            sidebar.classList.toggle("close");
+    let arrow = document.querySelectorAll(".arrow");
+    for (var i = 0; i < arrow.length; i++) {
+        arrow[i].addEventListener("click", (e) => {
+            let arrowParent = e.target.parentElement.parentElement; //selecting main parent of arrow
+            arrowParent.classList.toggle("showMenu");
         });
+    }
+    let sidebar = document.querySelector(".sidebar");
+    let sidebarBtn = document.querySelector(".bx-menu");
+    console.log(sidebarBtn);
+    sidebarBtn.addEventListener("click", () => {
+        sidebar.classList.toggle("close");
+    });
     </script>
 </body>
 

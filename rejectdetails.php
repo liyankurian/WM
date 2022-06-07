@@ -170,8 +170,7 @@ $spic=$userData['img'];
                                 <th scope="col">Reason</th>
                             </tr>
                         </thead>
-                        </tr>
-                        </thead>
+                        
                         <?php
                         $no=1;
                         $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address,a.reason FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and a.status='2' ");

@@ -1,12 +1,17 @@
 <?php
 include 'hconnect.php';
 session_start();
+$id=$_GET['aab'];
 if(isset($_SESSION['wmsession'])!= session_id()){
     header("location: ./userlogin.php");
     die();
 }else{
+	
+	
     
 ?>
+
+
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 
@@ -25,6 +30,26 @@ if(isset($_SESSION['wmsession'])!= session_id()){
     <script src="/css/bootstrap/js/bootstrap.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js" integrity="sha384-7+zCNj/IqJ95wo16oMtfsKbZ9ccEh31eOz1HGyDuCQ6wgnyJNSYdrPa03rtR1zdB" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+	<style>
+	.home-sub .overview-boxes{
+    display: flex;
+    flex-wrap: wrap;
+    padding: 0 20px;
+    margin-bottom: 16px;
+    flex-direction: column;
+    }
+	.modal-body input
+    {
+        width: 80%;
+    }
+    .mvp
+    {   display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-gap: 2vw;
+        padding:4vw;
+        border-radius: 2%;
+    }
+	</style>
 </head>
 
 <body>
@@ -34,12 +59,12 @@ if(isset($_SESSION['wmsession'])!= session_id()){
         </div>
         <ul class="nav-links">
             <li>
-                <a href="#" >
+                <a href="adminpanel.php" >
                     <i class='bx bx-grid-alt'></i>
                     <span class="link_name">Dashboard</span>
                 </a>
                 <ul class="sub-menu blank">
-                    <li><a class="link_name" href="#">Dashboard</a></li>
+                    <li><a class="link_name" href="adminpanel.php">Dashboard</a></li>
                 </ul>
             </li>
             <li>
@@ -119,23 +144,64 @@ if(isset($_SESSION['wmsession'])!= session_id()){
 
         <div class="home-sub">
             <div class="overview-boxes ">
-                <div class="box m-5">
-                    <div class="right-side ">
-                        <div class="box-topic">Total User</div>
-                        <div class="number"><?php $qe = mysqli_query($con,"SELECT COUNT(*) FROM tbl_userdetails WHERE `status`='1' ");
-                        $row = mysqli_fetch_array($qe);
-                        echo $row[0];
-                         ?></div>
-                    </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/group.png" />
-                </div>
-                <div class="box">
-                    <div class="right-side">
-                        <div class="box-topic">Daily Report </div>
-                        <a href="makedailyreport.php"><button type="button" class="btn btn-danger mt-3">View</button></a>
-                    </div>
-                    <img src="https://img.icons8.com/bubbles/100/000000/report-card.png" />
-                </div>
+			<div class="form bg-light mvp  mt-4" id="form" style="height:auto; width:auto;">
+			<?php
+                        $res = mysqli_query($con, "SELECT b.email,b.id,a.uid,a.status,a.apname, a.apno, a.address, a.dist, a.pin, a.mob, a.altmob,a.reason FROM tbl_userdetails a INNER JOIN tbl_register b where b.id=a.uid and b.id='$id'");
+                        
+                        while ($row = mysqli_fetch_array($res)) { ?>
+                    <table class="table table-bordered">
+                        <thead>
+                            <?php $_SESSION['zz']=$row['id'];?>
+                            <tr>
+                                <th colspan="2" style="text-align:center; ">User Details</th>
+                            </tr>
+                            <tr>
+                                <th scope="col">Email</th>
+                                <td><?php echo $row["email"]; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Apartment Name</th>
+                                <td><?php echo $row["apname"]; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Apartment Number</th>
+                                <td><?php echo $row["apno"]; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Address</th>
+                                <td><?php echo $row["address"]; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Place</th>
+                                <td><?php echo $row["dist"]; ?></td>
+                            </tr>
+                            <tr>
+                                <th scope="col">Pincode</th>
+                                <td><?php echo $row["pin"]; ?></td>
+                            </tr> 
+                            <tr>   
+                                <th scope="col">Mobile</th>
+                                <td><?php echo $row["mob"]; ?></td>
+                            </tr> 
+                            <tr>   
+                                <th scope="col">Alternate Mobile</th>
+                                <td><?php echo $row["altmob"]; ?></td>
+                            </tr> 
+                            <tr>
+                                <th rolspan="2" scope="col">Status</th>
+                                <td><label class="btn btn-danger">Rejected User</label></td>
+                            </tr>
+                            <tr>   
+                                <th scope="col">Reason of Rejection</th>
+                                <td><?php echo $row["reason"]; ?></td>
+                            </tr> 
+                        </thead>
+                    <?php
+                        }
+                        ?>
+                        
+                
+            
             </div>
         </div>
     </section>
